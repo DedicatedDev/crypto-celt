@@ -1,0 +1,29 @@
+{
+  "name": "nft-res-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ipfs-car":"^0.6.2"
+  },
+  "peerDependencies": {
+    "@morigin/contracts-typechain": "*",
+    "@typechain/ethers-v5": "*",
+    "@types/chai": "*",
+    "@types/crypto-js": "*",
+    "@types/jest": "*",
+    "@types/mocha": "*",
+    "@types/node": "*",
+    "@types/ipfs-http-client": "*",
+    "chai": "*",
+    "crypto-js": "*",
+    "dotenv": "*",
+    "ethers": "*",
+    "mocha": "*",
+    "axios": "*",
+    "ts-node": "*",
+    "typechain": "*",
+    "typescript": "*",
+    "web3modal": "*"
+  }
+}
