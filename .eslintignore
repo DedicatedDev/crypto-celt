@@ -1,0 +1,13 @@
+# folders
+lib/
+node_modules/
+dist/
+generated/
+
+# files
+**/*.less
+**/*.css
+**/*.scss
+**/*.json
+**/*.png
+**/*.svg
