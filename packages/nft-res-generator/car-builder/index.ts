@@ -6,7 +6,7 @@ import { Url } from "url";
 export const makeCar = async (filename:string, path:string) => {
   const writable = fs.createWriteStream(`./build/${filename}.car`);
   await packToStream({
-    input: "",
+    input: path,
     writable,
     blockstore: new FsBlockStore(),
   });

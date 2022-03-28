@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "fs/": "https://deno.land/std@0.127.0/fs/",
+    "limiter": "https://cdn.skypack.dev/pin/limiter@v2.1.0-N19ZAEsG7KIZbZsQyeTN/mode=imports,min/optimized/limiter.js",
+    "lodash": "https://cdn.skypack.dev/pin/lodash@v4.17.21-K6GEbP02mWFnLA45zAmi/mode=imports,min/optimized/lodash.js",
+    "log/": "https://deno.land/std@0.127.0/log/",
+    "path/": "https://deno.land/std@0.118.0/path/"
+  }
+}
