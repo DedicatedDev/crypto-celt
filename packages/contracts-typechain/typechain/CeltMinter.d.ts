@@ -26,7 +26,7 @@ interface CeltMinterInterface extends ethers.utils.Interface {
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "burn(uint256)": FunctionFragment;
     "claim(uint256,bool)": FunctionFragment;
-    "initialize()": FunctionFragment;
+    "initialize(string)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "owner()": FunctionFragment;
     "pause()": FunctionFragment;
@@ -61,10 +61,7 @@ interface CeltMinterInterface extends ethers.utils.Interface {
     functionFragment: "claim",
     values: [BigNumberish, boolean]
   ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: "initialize", values: [string]): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
@@ -320,6 +317,7 @@ export class CeltMinter extends BaseContract {
     ): Promise<ContractTransaction>;
 
     initialize(
+      tokenUri: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -439,6 +437,7 @@ export class CeltMinter extends BaseContract {
   ): Promise<ContractTransaction>;
 
   initialize(
+    tokenUri: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -554,7 +553,7 @@ export class CeltMinter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    initialize(overrides?: CallOverrides): Promise<void>;
+    initialize(tokenUri: string, overrides?: CallOverrides): Promise<void>;
 
     isApprovedForAll(
       account: string,
@@ -819,6 +818,7 @@ export class CeltMinter extends BaseContract {
     ): Promise<BigNumber>;
 
     initialize(
+      tokenUri: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -939,6 +939,7 @@ export class CeltMinter extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     initialize(
+      tokenUri: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

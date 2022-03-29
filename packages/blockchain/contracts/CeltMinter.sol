@@ -11,19 +11,19 @@ import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "./GreenFalcoin.sol";
 
 contract CeltMinter is ERC1155Upgradeable,UUPSUpgradeable,OwnableUpgradeable,PausableUpgradeable {
-    
     using CountersUpgradeable for CountersUpgradeable.Counter;
-
     CountersUpgradeable.Counter private tokenIds_;
     GreenFalcoin private token_;
-    uint256 private airdropAmount_ = 10000 ether;
-    uint256 private mintFee_ = 1e16 wei;
+    uint256 private airdropAmount_;
+    uint256 private mintFee_;
 
-    function initialize() public initializer {
+    function initialize(string calldata tokenUri) public initializer {
       ///@dev as there is no constructor, we need to initialise the OwnableUpgradeable explicitly
         __Pausable_init();
         __Ownable_init();
-        __ERC1155_init("https://bafybeiart4ifwiigqlkw6m7mmumetlquozzalj3tbtbhdofwsvaoim6znu.ipfs.nftstorage.link/");
+        __ERC1155_init(tokenUri);
+        airdropAmount_ = 10000 ether;
+        mintFee_ = 1e16 wei;
     }
 
      ///@dev required by the OZ UUPS module

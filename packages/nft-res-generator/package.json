@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "prepare" : "node ./index.js "
+  },
   "dependencies": {
     "ipfs-car":"^0.6.2",
     "fs": "^0.0.1-security",
     "nft.storage" : "^6.1.0"
   },
   "peerDependencies": {
-    "@morigin/contracts-typechain": "*",
     "@typechain/ethers-v5": "*",
     "@types/chai": "*",
     "@types/crypto-js": "*",
@@ -26,7 +28,8 @@
     "ts-node": "*",
     "typechain": "*",
     "typescript": "*",
-    "web3modal": "*"
+    "web3modal": "*",
+    "@cryptocelts/contracts-typechain":"*"
   },
   "type": "module"
 }
