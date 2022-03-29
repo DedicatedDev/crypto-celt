@@ -8,3 +8,8 @@ RUN apt-get update && apt-get install -y \
     curl unzip wget \
     xvfb
 RUN apt install python-is-python3
+RUN apt install nodejs npm
+RUN apt install yarn
+COPY . /CryptoCelts
+WORKDIR /CryptoCelts
+RUN yarn
