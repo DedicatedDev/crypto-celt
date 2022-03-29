@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "ipfs-car":"^0.6.2"
+    "ipfs-car":"^0.6.2",
+    "fs": "^0.0.1-security",
+    "nft.storage" : "^6.1.0"
   },
   "peerDependencies": {
     "@morigin/contracts-typechain": "*",
@@ -25,5 +27,6 @@
     "typechain": "*",
     "typescript": "*",
     "web3modal": "*"
-  }
+  },
+  "type": "module"
 }
