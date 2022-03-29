@@ -9,7 +9,6 @@
   "workspaces":{
     "packages": [
       "packages/app",
-      "packages/blockchain",
       "packages/nft-res-generator",
       "packages/server"
     ]
