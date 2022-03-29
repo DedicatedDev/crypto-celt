@@ -1,0 +1,19 @@
+{
+  "name": "@celt/contracts-typechain",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "author": "Andrei K",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "@ethersproject/providers": "*",
+    "@typechain/ethers-v5": "*",
+    "ethers": "*",
+    "typechain": "*",
+    "typescript": "*"
+  }
+
+}
