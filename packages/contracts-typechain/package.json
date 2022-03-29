@@ -1,12 +1,12 @@
 {
-  "name": "@celt/contracts-typechain",
+  "name": "@cryptocelts/contracts-typechain",
   "version": "1.0.0",
   "main": "lib/index.js",
   "author": "Andrei K",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc"
+    "build": "tsc --preserveSymlinks"
   },
   "peerDependencies": {
     "@ethersproject/providers": "*",
@@ -15,5 +15,4 @@
     "typechain": "*",
     "typescript": "*"
   }
-
 }

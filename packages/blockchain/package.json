@@ -1,5 +1,8 @@
 {
-  "name": "hardhat-project",
+  "name": "@cryptocelts/hardhat",
+  "version": "0.0.0",
+  "main": "index.js",
+  "private":"true",
   "dependencies": {
     "@openzeppelin/contracts-upgradeable": "^4.5.2",
     "@openzeppelin/hardhat-upgrades" : "1.16.1"
@@ -35,5 +38,20 @@
     "ts-node": "^10.7.0",
     "typechain": "^5.2.0",
     "typescript": "^4.6.3"
+  },
+  "peerDependencies": {
+    "@typechain/ethers-v5": "*",
+    "@typechain/hardhat": "*",
+    "@types/chai": "*",
+    "@types/mocha": "*",
+    "@types/node": "*",
+    "chai": "*",
+    "dotenv": "*",
+    "ethers": "*",
+    "ts-node": "*",
+    "typechain": "*",
+    "typescript": "*",
+    "mocha": "*"
+   
   }
 }

@@ -3,7 +3,8 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { ethers, upgrades } from "hardhat";
+//
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -15,15 +16,18 @@ async function main() {
 
   // We get the contract to deploy
   const greenFalcoinFactory = await ethers.getContractFactory("GreenFalcoin");
-  const greenFalcoin = await greenFalcoinFactory.deploy();
+  const greenFalcoin = await upgrades.deployProxy(greenFalcoinFactory,{
+    kind: "uups",
+    
+  });
   await greenFalcoin.deployed();
   console.log("GreenFalCoin deployed to:", greenFalcoin.address);
 
 
   const celtMinterFactory = await ethers.getContractFactory("CeltMinter");
-  const celtMinter = await celtMinterFactory.deploy(greenFalcoin.address);
-  await celtMinter.deployed();
-  
+  const celtMinter = await upgrades.deployProxy(celtMinterFactory,[""],{
+    kind: "uups",
+  });  
   const amount = ethers.utils.parseEther("100000000000000");
   await greenFalcoin.mint(celtMinter.address,amount);
   console.log("CeltMinter deployed to:", celtMinter.address);

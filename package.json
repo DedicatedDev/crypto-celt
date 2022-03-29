@@ -1,13 +1,13 @@
 {
-  "name": "crypto-celt",
+  "name": "@cryptocelts/monorepo",
   "version": "0.0.1",
   "description": "CryptoCelt is just CeltNFT/GreenFalCoin Creat/Airdrop/Marketing Page",
-  "main": "index.ts",
   "author": "Andrei K",
   "license": "MIT",
   "private": true,
   "workspaces":{
     "packages": [
+      "packages/blockchain",
       "packages/app",
       "packages/nft-res-generator",
       "packages/server"
@@ -21,10 +21,21 @@
     "node": ">=16"
   },
   "scripts":{
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
     "poetry" : "cd packages/nft-res-generator/generator && poetry install",
     "nft:convert-layers-csv":"cd packages/nft-res-generator/generator && deno run --import-map ./import_map.json -A Drakefile.ts convert-layers-csv layersCsvPath=input-rarity-table.csv outputJsonPath=assets/layers.json",
     "nft:generate-metadata" :"cd packages/nft-res-generator/generator && rm -rf build && deno run --import-map ./import_map.json -A Drakefile.ts generate-metadata",
-    "nft:generate-car": "cd packages/nft-res-generator && yarn ipfs-car --pack ./generator/build/images --output ./generator/build/image.car && yarn ipfs-car --pack ./generator/build/metadata --output ./generator/build/metadata.car"
+    "nft:generate-car": "cd packages/nft-res-generator && yarn ipfs-car --pack ./generator/build/images --output ./generator/build/image.car && yarn ipfs-car --pack ./generator/build/metadata --output ./generator/build/metadata.car",
+    "nft:prepare":"cd packages/nft-res-generator && yarn node index.js",
+    "typechain:build": "cd packages/contracts-typechain && yarn build",
+    "hh:node":"cd packages/blockchain && npx hardhat node",
+    "hh:build":"cd packages/blockchain && npx hardhat compile --force && cd .. && yarn typechain:build",
+    "hh:test" : "cd packages/blockchain && npx hardhat test",
+    "hh:deploy:local" : "cd packages/blockchain && npx hardhat run --network localhost scripts/deploy.ts",
+    "hh:deploy:rinkeby" : "cd packages/blockchain && npx hardhat run --network rinkeby scripts/deploy.ts",
+    "hh:deploy:emerald_testnet": "cd packages/hardhat && npx hardhat run --network emerald_testnet scripts/deploy.ts",
+    "hh:deploy:emerald_mainnet": "cd packages/hardhat && npx hardhat run --network emerald_mainnet scripts/deploy.ts"
   },
   "dependencies": {
     "axios": "^0.26.0",

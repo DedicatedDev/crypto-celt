@@ -6,6 +6,8 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import "@openzeppelin/hardhat-upgrades";
+import "@typechain/hardhat";
 
 dotenv.config();
 
@@ -34,10 +36,30 @@ const config: HardhatUserConfig = {
     target: "ethers-v5",
   },
   networks: {
+    localhost: {
+      url: "http://localhost:8545",
+    },
+    hardhat_docker: {
+      url: "http://hardhat:8545",
+    },
+
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+
+    emerald_testnet: {
+      url: "https://testnet.emerald.oasis.dev",
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    emerald_mainnet: {
+      url: "https://emerald.oasis.dev",
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${process.env.INFURA_RINKEYBYID}`,
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
   },
   gasReporter: {
