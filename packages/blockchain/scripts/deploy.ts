@@ -14,12 +14,20 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const greenFalcoinFactory = await ethers.getContractFactory("GreenFalcoin");
+  const greenFalcoin = await greenFalcoinFactory.deploy();
+  await greenFalcoin.deployed();
+  console.log("GreenFalCoin deployed to:", greenFalcoin.address);
 
-  await greeter.deployed();
 
-  console.log("Greeter deployed to:", greeter.address);
+  const celtMinterFactory = await ethers.getContractFactory("CeltMinter");
+  const celtMinter = await celtMinterFactory.deploy(greenFalcoin.address);
+  await celtMinter.deployed();
+  
+  const amount = ethers.utils.parseEther("100000000000000");
+  await greenFalcoin.mint(celtMinter.address,amount);
+  console.log("CeltMinter deployed to:", celtMinter.address);
+  
 }
 
 // We recommend this pattern to be able to use async/await everywhere
