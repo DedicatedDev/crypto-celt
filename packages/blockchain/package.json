@@ -40,6 +40,7 @@
     "typescript": "^4.6.3"
   },
   "peerDependencies": {
+    "@cryptocelts/contracts-typechain": "*",
     "@typechain/ethers-v5": "*",
     "@typechain/hardhat": "*",
     "@types/chai": "*",
@@ -52,6 +53,5 @@
     "typechain": "*",
     "typescript": "*",
     "mocha": "*"
-   
   }
 }

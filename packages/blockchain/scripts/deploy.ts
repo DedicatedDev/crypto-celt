@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { ethers, upgrades } from "hardhat";
+import {Settings} from "@cryptocelts/contracts-typechain"
 //
 
 async function main() {
@@ -25,7 +26,7 @@ async function main() {
 
 
   const celtMinterFactory = await ethers.getContractFactory("CeltMinter");
-  const celtMinter = await upgrades.deployProxy(celtMinterFactory,[""],{
+  const celtMinter = await upgrades.deployProxy(celtMinterFactory,[Settings.tokenUri],{
     kind: "uups",
   });  
   const amount = ethers.utils.parseEther("100000000000000");
