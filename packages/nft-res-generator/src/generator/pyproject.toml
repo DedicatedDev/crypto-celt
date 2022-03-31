@@ -7,7 +7,7 @@ authors = ["Mint Road Ltd."]
 [tool.poetry.dependencies]
 python = "^3.8.10"
 pandas = "^1.4.0"
-Pillow = "^9.0.0"
+Pillow = "^9.0.1"
 selenium = "^4.1.0"
 webdriver-manager = "^3.5.2"
 python-dotenv = "^0.19.2"
