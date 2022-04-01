@@ -37,6 +37,7 @@ RUN CHROM_METAMASK_VERSION=`curl https://github.com/MetaMask/metamask-extension/
 ENV PATH="${PATH}:/root/.poetry/bin"
 RUN apt update
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y \ nodejs
 RUN npm install -g yarn
 RUN echo "Node: " && node -v
 RUN echo "NPM: " && npm -v
