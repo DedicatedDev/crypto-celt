@@ -1,4 +1,5 @@
 FROM nikolaik/python-nodejs
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 COPY . /CryptoCelts
 WORKDIR /CryptoCelts
 RUN yarn && yarn lint && yarn lint --fix && yarn hh:build && yarn typechain:build
