@@ -1,14 +1,14 @@
-import { NFTStorage, File } from "nft.storage";
-
 import fs from "fs";
-import { packToFs } from "ipfs-car/pack/fs";
+
 import { CarIndexedReader } from "@ipld/car";
+import { packToFs } from "ipfs-car/pack/fs";
+import { NFTStorage } from "nft.storage";
 
 const buildDir = "./src/generator/build";
 const settingsPath = "../contracts-typechain/settings/settings.json";
 
-export const uploadToStorage = async (input,output) => {
-  console.log("upload start....")
+export const uploadToStorage = async (input, output) => {
+  console.log("upload start....");
   const storage = new NFTStorage({
     token:
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDc3MDNkQjQ2MTAyYTc0MjRmRDE0ODI5OTk1MjVkOENDOEExZkNDMTciLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY0NjU5ODYwNzcwMywibmFtZSI6IkNlbHRzIn0.CSP3wc6P-EgkILqJiX0o3DdYW9L4Rp2prB4StetitMY",
@@ -30,36 +30,36 @@ export const uploadToStorage = async (input,output) => {
 
   //   // check that the CID is pinned
   const status = await storage.status(cid);
-  console.log("image upload end....")
-  return status.cid
-  //Delete car file created
-  //await fs.promises.rm(`${process.cwd()}/output.car`)
+  console.log("image upload end....");
+  return status.cid;
+  // Delete car file created
+  // await fs.promises.rm(`${process.cwd()}/output.car`)
 };
 
-const updateImageLink =  (cid,count) => {
-    const padCount = (count.toString()).length
-    for (let index = 0; index < count; index++) {
-        const padded = (index+1).toString().padStart(padCount,'0')
-        const rowData = fs.readFileSync(`${buildDir}/metadata/${padded}.json`)
-        const data = JSON.parse(rowData)
-        data.image = `https://${cid}.ipfs.nftstorage.link/images/${padded}.png`
-        fs.writeFileSync(`${buildDir}/metadata/${padded}.json`,JSON.stringify(data))
-    }
-}
+const updateImageLink = (cid, count) => {
+  const padCount = count.toString().length;
+  for (let index = 0; index < count; index++) {
+    const padded = (index + 1).toString().padStart(padCount, "0");
+    const rowData = fs.readFileSync(`${buildDir}/metadata/${padded}.json`);
+    const data = JSON.parse(rowData);
+    data.image = `https://${cid}.ipfs.nftstorage.link/images/${padded}.png`;
+    fs.writeFileSync(`${buildDir}/metadata/${padded}.json`, JSON.stringify(data));
+  }
+};
 
-export const prepareResources = async() => {
-  const imgCid = await uploadToStorage(`${buildDir}/images`,`${buildDir}/images.car`);
-  const files =  fs.readdirSync(`${buildDir}/images`).length;
-  updateImageLink(imgCid,files)
-  const metadataCid = await uploadToStorage(`${buildDir}/metadata/`,`${buildDir}/metadata.car`);
-  let data = {}
+export const prepareResources = async () => {
+  const imgCid = await uploadToStorage(`${buildDir}/images`, `${buildDir}/images.car`);
+  const files = fs.readdirSync(`${buildDir}/images`).length;
+  updateImageLink(imgCid, files);
+  const metadataCid = await uploadToStorage(`${buildDir}/metadata/`, `${buildDir}/metadata.car`);
+  let data = {};
   if (!fs.existsSync(settingsPath)) {
     fs.mkdirSync(settingsPath);
-  }else{
-    const rawdata = fs.readFileSync(settingsPath)
+  } else {
+    const rawdata = fs.readFileSync(settingsPath);
     data = JSON.parse(rawdata);
   }
-  data.tokenUri = `https://${metadataCid}.ipfs.nftstorage.link/metadata`
+  data.tokenUri = `https://${metadataCid}.ipfs.nftstorage.link/metadata`;
   fs.writeFileSync(`${settingsPath}`, JSON.stringify(data), "utf-8");
-}
-prepareResources()
+};
+await prepareResources();

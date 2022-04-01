@@ -1,23 +1,16 @@
 import { log } from "../../deps.ts";
-import {
-  executionService,
-  StatusCell,
-} from "../modules/runner/services/mod.ts";
 import { driveConfig } from "../config/mod.ts";
+import { executionService, StatusCell } from "../modules/runner/services/mod.ts";
 
 export async function writeFileIds() {
   const logger = log.getLogger();
 
   try {
     logger.info("Retrieving image file ids");
-    const imageLookup: any = await executionService.listFiles(
-      driveConfig.imagesFolderId,
-    );
+    const imageLookup: any = await executionService.listFiles(driveConfig.imagesFolderId);
 
     logger.info("Retrieving metadata file ids");
-    const metaLookup: any = await executionService.listFiles(
-      driveConfig.metadataFolderId,
-    );
+    const metaLookup: any = await executionService.listFiles(driveConfig.metadataFolderId);
 
     logger.info("Creating assets");
     // Reading assets in advance using getAssets (updated to page) could make this task

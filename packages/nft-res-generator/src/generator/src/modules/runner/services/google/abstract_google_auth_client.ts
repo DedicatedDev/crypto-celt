@@ -1,4 +1,5 @@
 import { JWTToken } from "../../domain/jwt.ts";
+
 import { IGoogleOAuth2Service } from "./google_oauth2.ts";
 
 export abstract class AbstractGoogleClient {

@@ -29,7 +29,9 @@
     "typechain": "*",
     "typescript": "*",
     "web3modal": "*",
-    "@cryptocelts/contracts-typechain":"*"
+    "@cryptocelts/contracts-typechain":"*",
+    "@ipld/car": "*",
+    "lodash": "*"
   },
   "type": "module"
 }

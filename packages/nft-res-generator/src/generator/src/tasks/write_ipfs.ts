@@ -1,26 +1,14 @@
-import { log } from "../../deps.ts";
 import { abort } from "https://deno.land/x/drake@v1.5.0/mod.ts";
-import {
-  executionService,
-  nftPortService,
-} from "../modules/runner/services/mod.ts";
-import {
-  Asset,
-  StatusCell,
-} from "../modules/runner/services/execution_service.ts";
-import { driveConfig } from "../config/mod.ts";
+
+import { log } from "../../deps.ts";
+import { Asset, StatusCell } from "../modules/runner/services/execution_service.ts";
+import { executionService } from "../modules/runner/services/mod.ts";
 
 const logger = log.getLogger();
 
 async function writeBatch(assets: Asset[]): Promise<void> {
   const [asset] = assets;
-  const {
-    id,
-    driveImageFileId,
-    driveMetadataFileId,
-    ipfsImageURL,
-    ipfsMetaURL,
-  } = asset;
+  const { id, driveImageFileId, driveMetadataFileId, ipfsImageURL, ipfsMetaURL } = asset;
 
   if (ipfsImageURL || ipfsMetaURL) {
     throw new Error(`Asset ${id} is already written`);
@@ -37,11 +25,11 @@ async function writeBatch(assets: Asset[]): Promise<void> {
   const metadata = await executionService.getMetadata(driveMetadataFileId);
 
   logger.info("Writing image");
-  //nftPortService.writeImage(image, `${metadata.name}.png`);
+  // nftPortService.writeImage(image, `${metadata.name}.png`);
 
   logger.info("Writing metadata");
   // TODO: create IPFSMetadata (nft_port_service) payload
-  //nftPortService.writeMetadata(image, `${ipfsMeta.name}.png`);
+  // nftPortService.writeMetadata(image, `${ipfsMeta.name}.png`);
 
   // TODO: remove
   console.log(metadata);
@@ -54,7 +42,7 @@ async function writeBatch(assets: Asset[]): Promise<void> {
   const nextAssets = assets.slice(1);
 
   if (nextAssets.length > 0) {
-    writeBatch(nextAssets);
+    await writeBatch(nextAssets);
   }
 }
 
@@ -66,13 +54,11 @@ export async function writeIPFS() {
     logger.info("Retrieving status");
     const { lastIPFSId } = await executionService.getStatus();
 
-    const startId = lastIPFSId + 1;
+    const startId = +lastIPFSId + 1;
     const endId = maxMintId;
 
     if (startId > maxMintId) {
-      throw new Error(
-        `Asset ${startId} is greater than max_mint_id (${maxMintId})`,
-      );
+      throw new Error(`Asset ${startId} is greater than max_mint_id (${maxMintId})`);
     }
 
     const assets = await executionService.getAssets(startId, endId);
