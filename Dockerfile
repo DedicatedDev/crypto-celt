@@ -36,11 +36,8 @@ RUN CHROM_METAMASK_VERSION=`curl https://github.com/MetaMask/metamask-extension/
 RUN CHROM_METAMASK_VERSION=`curl https://github.com/MetaMask/metamask-extension/releases/latest | grep -Po 'v[0-9]+.[0-9]+.[0-9]+'` && CHROM_METAMASK_PURE_VERSION=`echo $CHROM_METAMASK_VERSION | cut -c 2-` && wget https://github.com/MetaMask/metamask-extension//releases/download/$CHROM_METAMASK_VERSION/metamask-firefox-$CHROM_METAMASK_PURE_VERSION.zip &&   mv metamask-firefox-$CHROM_METAMASK_PURE_VERSION.zip metamask.xpi
 ENV PATH="${PATH}:/root/.poetry/bin"
 RUN apt update
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y \ nodejs
+RUN apt-get update && apt-get upgrade -y && \ apt-get install -y nodejs \ npm  
 RUN npm install -g yarn
-RUN echo "Node: " && node -v
-RUN echo "NPM: " && npm -v
 
 COPY . /CryptoCelts
 WORKDIR /CryptoCelts
