@@ -1,4 +1,5 @@
 import { abort, debug } from "https://deno.land/x/drake@v1.5.0/mod.ts";
+
 import { existsSync } from "../../deps.ts";
 
 /**
@@ -7,17 +8,10 @@ import { existsSync } from "../../deps.ts";
  * Returns `true` if a new file was created.
  * Returns `false` if the file already exists.
  */
-export function writeFile(
-  filename: string,
-  text: string,
-  options?: { append: boolean },
-): boolean {
+export function writeFile(filename: string, text: string, options?: { append: boolean }): boolean {
   const exists = existsSync(filename);
   try {
-    debug(
-      "writeFile",
-      `${filename}: ${text.length} characters written`,
-    );
+    debug("writeFile", `${filename}: ${text.length} characters written`);
 
     Deno.writeTextFileSync(filename, text, options);
   } catch (e) {

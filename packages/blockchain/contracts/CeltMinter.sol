@@ -37,8 +37,6 @@ contract CeltMinter is ERC1155Upgradeable,UUPSUpgradeable,OwnableUpgradeable,Pau
         _unpause();
     }
 
-    
-
     function claim(uint256 amount, bool levelup) external payable whenNotPaused {
         require(msg.value == mintFee_ * amount, "CeltMinter: not enough fund");
         require(amount<1000,"CeltMinter: exccced amount");

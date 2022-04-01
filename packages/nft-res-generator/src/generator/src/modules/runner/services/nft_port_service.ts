@@ -1,4 +1,3 @@
-
 import { log, RateLimiter } from "../../../../deps.ts";
 
 const logger = log.getLogger();
@@ -43,11 +42,10 @@ export class NFTPortService {
       method: "POST",
       body: formData,
       headers: {
-        "Authorization": this.apiKey,
+        Authorization: this.apiKey,
       },
     });
 
     return response.json();
   }
-
 }

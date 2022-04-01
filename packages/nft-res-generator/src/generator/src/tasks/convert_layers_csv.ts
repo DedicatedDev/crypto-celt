@@ -1,9 +1,6 @@
-import {
-  dirname,
-  fromFileUrl,
-  join,
-} from "https://deno.land/std@0.118.0/path/mod.ts";
+import { dirname, fromFileUrl, join } from "https://deno.land/std@0.118.0/path/mod.ts";
 import { abort, env, sh } from "https://deno.land/x/drake@v1.5.0/mod.ts";
+
 import { Guard } from "../shared/core/guard.ts";
 
 const __dirname = dirname(fromFileUrl(import.meta.url));
@@ -23,7 +20,5 @@ export async function convertLayersCsv() {
     abort(guardResult.message as string);
   }
 
-  sh(
-    `poetry run python3 "${pythonModule}" "${layersCsvPath}" "${outputJsonPath}"`,
-  );
+  sh(`poetry run python3 "${pythonModule}" "${layersCsvPath}" "${outputJsonPath}"`);
 }

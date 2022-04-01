@@ -1,6 +1,5 @@
 import { log, RateLimiter } from "../../deps.ts";
 import { executionService } from "../modules/runner/services/mod.ts";
-import { nftPortConfig } from "../config/mod.ts";
 
 const limiter = new RateLimiter({
   tokensPerInterval: 4,
@@ -10,13 +9,11 @@ const limiter = new RateLimiter({
 
 export async function prototypeGoogleDrive() {
   const logger = log.getLogger();
-  //const nftPortURL = "https://api.nftport.xyz/v0/files";
+  // const nftPortURL = "https://api.nftport.xyz/v0/files";
 
   try {
     // test file
-    const blob = await executionService.getFile(
-      "1kh_aa1zWABKOAl7B_J8dhP_BCJlRc0Jt",
-    );
+    const blob = await executionService.getFile("1kh_aa1zWABKOAl7B_J8dhP_BCJlRc0Jt");
 
     console.log(blob);
 
@@ -37,7 +34,7 @@ export async function prototypeGoogleDrive() {
 
     logger.info(await response.json());*/
   } catch (e) {
-    console.log(e)
+    console.log(e);
     logger.error(e);
   }
 }

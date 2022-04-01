@@ -11,3 +11,6 @@ generated/
 **/*.json
 **/*.png
 **/*.svg
+
+#estlint file. 
+.eslintrc.js

@@ -3,8 +3,10 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
+import { Settings } from "@cryptocelts/contracts-typechain";
 import { ethers, upgrades } from "hardhat";
-import {Settings} from "@cryptocelts/contracts-typechain"
+
+import { saveDeployedAddress } from "../utils/utils";
 //
 
 async function main() {
@@ -17,22 +19,20 @@ async function main() {
 
   // We get the contract to deploy
   const greenFalcoinFactory = await ethers.getContractFactory("GreenFalcoin");
-  const greenFalcoin = await upgrades.deployProxy(greenFalcoinFactory,{
+  const greenFalcoin = await upgrades.deployProxy(greenFalcoinFactory, {
     kind: "uups",
-    
   });
   await greenFalcoin.deployed();
   console.log("GreenFalCoin deployed to:", greenFalcoin.address);
 
-
   const celtMinterFactory = await ethers.getContractFactory("CeltMinter");
-  const celtMinter = await upgrades.deployProxy(celtMinterFactory,[Settings.tokenUri],{
+  const celtMinter = await upgrades.deployProxy(celtMinterFactory, [Settings.tokenUri], {
     kind: "uups",
-  });  
+  });
   const amount = ethers.utils.parseEther("100000000000000");
-  await greenFalcoin.mint(celtMinter.address,amount);
+  await greenFalcoin.mint(celtMinter.address, amount);
   console.log("CeltMinter deployed to:", celtMinter.address);
-  
+  await saveDeployedAddress(celtMinter.address, greenFalcoin.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

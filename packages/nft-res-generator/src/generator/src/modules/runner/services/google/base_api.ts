@@ -1,8 +1,9 @@
-//@ts-ignore
+// @ts-ignore
 // https://github.com/stemmlerjs/ddd-forum/blob/ea393502396c91b7d85fdcc664b158de683a0bf2/public/app/src/shared/infra/services/BaseAPI.tsx
 import ky, { BeforeRequestHook } from "https://cdn.skypack.dev/ky?dts";
-import { IAuthService } from "../auth_service.ts";
+
 import { JWTToken } from "../../domain/jwt.ts";
+import { IAuthService } from "../auth_service.ts";
 
 export abstract class BaseGoogleAPI {
   private kyInstance: typeof ky;
@@ -19,13 +20,8 @@ export abstract class BaseGoogleAPI {
   private enableInterceptors(): void {
     this.kyInstance = this.kyInstance.extend({
       hooks: {
-        beforeRequest: [
-          this.getBeforeRequestHandler(),
-        ],
-        afterResponse: [
-          this.getSuccessResponseHandler(),
-          this.getErrorResponseHandler(),
-        ],
+        beforeRequest: [this.getBeforeRequestHandler()],
+        afterResponse: [this.getSuccessResponseHandler(), this.getErrorResponseHandler()],
       },
     });
   }
@@ -77,11 +73,7 @@ export abstract class BaseGoogleAPI {
     });
   }
 
-  protected put(
-    url: string,
-    body?: any,
-    headers?: any,
-  ): Promise<any> {
+  protected put(url: string, body?: any, headers?: any): Promise<any> {
     return this.kyInstance(url, {
       method: "PUT",
       body,
@@ -89,11 +81,7 @@ export abstract class BaseGoogleAPI {
     });
   }
 
-  protected post(
-    url: string,
-    body?: any,
-    headers?: any,
-  ): Promise<any> {
+  protected post(url: string, body?: any, headers?: any): Promise<any> {
     return this.kyInstance(url, {
       method: "POST",
       body,

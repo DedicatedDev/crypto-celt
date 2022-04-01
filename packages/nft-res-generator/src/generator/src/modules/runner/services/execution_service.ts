@@ -1,8 +1,5 @@
-import { 
-  lodash,
-  log,
-  RateLimiter
-} from "../../../../deps.ts";
+import { lodash, log, RateLimiter } from "../../../../deps.ts";
+
 import { IAuthService } from "./auth_service.ts";
 import { BaseGoogleAPI } from "./google/base_api.ts";
 
@@ -46,8 +43,7 @@ export interface GoogleOptions {
 }
 
 export class ExecutionService extends BaseGoogleAPI {
-  private static readonly baseSheetAPI =
-    "https://sheets.googleapis.com/v4/spreadsheets";
+  private static readonly baseSheetAPI = "https://sheets.googleapis.com/v4/spreadsheets";
   private static readonly baseDriveAPI = "https://www.googleapis.com/drive/v3";
   private sheetAPI: string;
   private sheetLimiter: RateLimiter;
@@ -55,11 +51,7 @@ export class ExecutionService extends BaseGoogleAPI {
   private driveId: string;
   private driveLimiter: RateLimiter;
 
-  constructor(
-    authService: IAuthService,
-    sheet: GoogleOptions,
-    drive: GoogleOptions,
-  ) {
+  constructor(authService: IAuthService, sheet: GoogleOptions, drive: GoogleOptions) {
     super(authService);
 
     const { id: sheetId, limiter: sheetLimiter } = sheet;
@@ -73,15 +65,13 @@ export class ExecutionService extends BaseGoogleAPI {
   }
 
   async updateRange(sheet: string, range: string, values: string[][]) {
-    const sheetURL = new URL(
-      `${this.sheetAPI}/values/${sheet}!${range}`,
-    );
+    const sheetURL = new URL(`${this.sheetAPI}/values/${sheet}!${range}`);
 
     sheetURL.searchParams.append("valueInputOption", "RAW");
     const payload = {
-      "range": `${sheet}!${range}`,
-      "majorDimension": "ROWS",
-      "values": values,
+      range: `${sheet}!${range}`,
+      majorDimension: "ROWS",
+      values: values,
     };
 
     await this.sheetLimiter.removeTokens(1);
@@ -94,15 +84,13 @@ export class ExecutionService extends BaseGoogleAPI {
   }
 
   async getAssets(firstAssetId: number, lastAssetId: number): Promise<Asset[]> {
-    const startRow = ++firstAssetId;
-    const endRow = ++lastAssetId;
+    const startRow = firstAssetId + 1;
+    const endRow = lastAssetId + 1;
     const range = `A${startRow}:K${endRow}`;
 
     await this.sheetLimiter.removeTokens(1);
 
-    const assetResponse = await this.get(
-      `${this.sheetAPI}/values/assets!${range}`,
-    );
+    const assetResponse = await this.get(`${this.sheetAPI}/values/assets!${range}`);
     const response = await assetResponse.json();
     const rawAssets = response.values || [];
 
@@ -172,9 +160,7 @@ export class ExecutionService extends BaseGoogleAPI {
       await this.updateRange("assets", range, batch);
 
       if (statusRange) {
-        await this.updateRange("status", statusRange, [[
-          lastBatchAssetId.toString(),
-        ]]);
+        await this.updateRange("status", statusRange, [[lastBatchAssetId.toString()]]);
       }
     }
   }
@@ -182,9 +168,7 @@ export class ExecutionService extends BaseGoogleAPI {
   async getStatus(): Promise<ExecutionStatus> {
     await this.sheetLimiter.removeTokens(1);
 
-    const statusResponse = await this.get(
-      `${this.sheetAPI}/values/status!A2:B6`,
-    );
+    const statusResponse = await this.get(`${this.sheetAPI}/values/status!A2:B6`);
 
     const jsonStatus = await statusResponse.json();
     const status = Object.fromEntries(jsonStatus.values);
@@ -200,9 +184,7 @@ export class ExecutionService extends BaseGoogleAPI {
   async getSettings(): Promise<ExecutionSettings> {
     await this.sheetLimiter.removeTokens(1);
 
-    const settingsResponse = await this.get(
-      `${this.sheetAPI}/values/settings!A2:B3`,
-    );
+    const settingsResponse = await this.get(`${this.sheetAPI}/values/settings!A2:B3`);
 
     const jsonStatus = await settingsResponse.json();
     const settings = Object.fromEntries(jsonStatus.values);
@@ -257,8 +239,8 @@ export class ExecutionService extends BaseGoogleAPI {
       pageToken = responseJSON.nextPageToken;
 
       const newFiles = responseJSON.files.reduce(
-        (lookup: any, file: any) => (lookup[file.name] = file.id, lookup),
-        {},
+        (lookup: any, file: any) => ((lookup[file.name] = file.id), lookup),
+        {}
       );
       fileLookup = { ...fileLookup, ...newFiles };
     } while (pageToken);

@@ -1,15 +1,13 @@
 // Based on https://gitlab.com/mintroad/tech/celts/-/snippets/2228494
 
-import { authConfig } from "../../../../config/mod.ts";
-import { JWTToken } from "../../domain/jwt.ts";
 import { decode } from "https://deno.land/std/encoding/base64.ts";
 import { create, Header, Payload } from "https://deno.land/x/djwt@v2.4/mod.ts";
 
+import { authConfig } from "../../../../config/mod.ts";
+import { JWTToken } from "../../domain/jwt.ts";
+
 async function serviceAccountJWT(): Promise<JWTToken> {
-  const {
-    googleServiceAccountPrivateKey: rawPrivateKey,
-    googleServiceAccountClientEmail: clientEmail,
-  } = authConfig;
+  const { googleServiceAccountPrivateKey: rawPrivateKey, googleServiceAccountClientEmail: clientEmail } = authConfig;
 
   const binaryPrivateKey = decode(rawPrivateKey).buffer;
 
@@ -18,7 +16,7 @@ async function serviceAccountJWT(): Promise<JWTToken> {
     binaryPrivateKey,
     { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
     true,
-    ["sign"],
+    ["sign"]
   );
 
   const header: Header = {
@@ -26,8 +24,7 @@ async function serviceAccountJWT(): Promise<JWTToken> {
     typ: "JWT",
   };
 
-  const scope =
-    "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets";
+  const scope = "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets";
 
   const now = new Date();
   const secondsSinceEpoch = Math.round(now.getTime() / 1000);
@@ -40,11 +37,7 @@ async function serviceAccountJWT(): Promise<JWTToken> {
     iat: secondsSinceEpoch,
   };
 
-  return create(
-    header,
-    payload,
-    privateKey,
-  );
+  return create(header, payload, privateKey);
 }
 
 const googleServiceAccountToken = await serviceAccountJWT();

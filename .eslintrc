@@ -1,12 +1,14 @@
 {
     "parser": "@typescript-eslint/parser",
-    // Specifies the ESLint parser
+    // Specifies the ESLint parser,
+    "root": true,
     "ignorePatterns": [
       "**/*.pcss",
       "**/*.css",
       "**/*.less",
       "**/*.json",
-      "**/*.html"
+      "**/*.html",
+      "**/*.d.ts"
     ],
     "parserOptions": {
       "ecmaVersion": 2020,
@@ -17,6 +19,7 @@
         "jsx": true
         // Allows for the parsing of JSX,
       },
+      
       "project": "tsconfig.json",
       "tsconfigRootDir": ".",
       "projectFolderIgnoreList": [
