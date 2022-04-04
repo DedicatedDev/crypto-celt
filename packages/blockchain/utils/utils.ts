@@ -11,14 +11,14 @@ export const saveDeployedAddress = async (celtMinter: string, greenFalcoin: stri
   settingInfo.celtMinterAddress = celtMinter;
   settingInfo.greenFalcoinAddress = greenFalcoin;
 
-  const settingsPath = "../../contracts-typechain/typechain/settings/settings.json";
+  const settingsPath = "../../contracts-typechain/typechain/settings";
   if (!existsSync(settingsPath)) {
-    mkdirSync(settingsPath);
+     mkdirSync(settingsPath,{recursive: true});
   } else {
-    const rawData = readFileSync(settingsPath);
+    const rawData = readFileSync(`${settingsPath}/settings.json`);
     const data = JSON.parse(rawData.toString());
     settingInfo.tokenUri = data.tokenUri;
   }
   const json = JSON.stringify(settingInfo);
-  writeFileSync(settingsPath, json, "utf-8");
+  writeFileSync(`${settingsPath}/settings.json`, json, "utf-8");
 };
