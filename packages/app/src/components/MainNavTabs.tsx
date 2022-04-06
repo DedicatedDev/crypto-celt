@@ -2,7 +2,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Routers } from "../models/router/RouterPath";
+import { Routers } from "../interfaces/router/RouterPath";
 
 // interface MainNavProps{
 //     onChangeRouter:(router:Routers)=>void

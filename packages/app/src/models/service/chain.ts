@@ -1,1 +1,0 @@
-export type Chain =  "rinkeby" | "kovan" | "eth" | "0x1" | "ropsten" | "0x3" | "0x4" | "goerli" | "0x5" | "0x2a" | "polygon" | "0x89" | "mumbai" | "0x13881" | "bsc" | "0x38" | "bsc testnet" | "0xfa";

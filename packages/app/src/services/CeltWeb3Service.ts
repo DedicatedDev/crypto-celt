@@ -1,19 +1,12 @@
 import { BigNumber, ethers, Signer } from "ethers";
-import {
-  CeltMinter,
-  CeltMinter__factory,
-} from "@cryptocelts/contracts-typechain";
-import { celtMinterAddress } from "../config";
 import Web3Modal from "web3modal";
-import CeltMinterABI from "@cryptocelts/contracts-typechain";
 import Moralis from "moralis";
 import Axios from "axios";
 import { TokenInfo } from "../interfaces/Nft";
 import { AllTokens } from "../interfaces/AllTokens";
-import { operations } from "moralis/types/generated/web3Api";
 import { FTokenInfo } from "../interfaces/FTokenInfo";
-import { Chain } from "../models/service/chain";
-
+import { Chain } from "../interfaces/service/chain";
+import {Settings} from "@cryptocelts/contracts-typechain";
 const fetchMetaData = async (url: string) => {
   const data = await Axios.get(url);
   return data;
@@ -48,7 +41,7 @@ export const CeltWeb3Service = {
     return await signer.signMessage("Welcome to Celts!");
   },
 
-  fetchAllNFTs: async (chain: Chain, tokenAddress: string) => {
+  fetchAllNFTs: async (chain: Chain) => {
     const web3Modal = new Web3Modal();
     try {
       const connection = await web3Modal.connect();
@@ -60,12 +53,12 @@ export const CeltWeb3Service = {
       const myNFTs = await Moralis.Web3API.account.getNFTs(options);
       const celtNFTs = (myNFTs?.result ?? []).filter(
         (e) =>
-          e.token_address === tokenAddress.toLowerCase() &&
+          e.token_address === Settings.celtMinterAddress.toLowerCase() &&
           e.contract_type === "ERC1155"
       );
       const remainNFTs = (myNFTs?.result ?? []).filter(
         (e) =>
-          e.token_address !== tokenAddress.toLowerCase() ||
+          e.token_address !== Settings.celtMinterAddress.toLowerCase() ||
           e.contract_type !== "ERC1155"
       );
       const allTokens: AllTokens = {

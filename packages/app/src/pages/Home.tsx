@@ -7,7 +7,6 @@ import Celts from "../assets/celts.png";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Favicon from "../assets/favicon.png";
-import { celtMinterAddress } from "../config";
 import { useEffect } from "react";
 import { CeltWeb3Service } from "../services/CeltWeb3Service";
 export const Home = () => {

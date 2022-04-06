@@ -4,18 +4,21 @@ import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { useEffect, useState } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { CeltMinterABI } from "@cryptocelts/contracts-typechain";
-import { celtMinterAddress } from "../config";
-import { CeltMinter } from "@cryptocelts/contracts-typechain";
+import {
+  CeltMinterABI,
+  CeltMinter,
+  Settings,
+} from "@cryptocelts/contracts-typechain";
 import MintBgImg from "../assets/mintBgImg.png";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Favicon from "../assets/favicon.png";
 import OpenSeaIcon from "../assets/openseaIcon.svg";
 import { delay } from "../utils/Utils";
-import { TransactionStatus } from "../models/celtMinter/TransactionStatus";
+import { TransactionStatus } from "../interfaces/celtMinter/TransactionStatus";
 import { useAppContextStore } from "../contexts/AppContext";
 import { useSnackbar } from "notistack";
+import * as config from "../config";
 
 export const Minter = () => {
   const MainContainer = styled("div")(({ theme }) => ({
@@ -94,8 +97,9 @@ export const Minter = () => {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
+
     const contract = new ethers.Contract(
-      celtMinterAddress,
+      Settings.celtMinterAddress.toLowerCase(),
       CeltMinterABI.abi,
       signer
     ) as CeltMinter;
@@ -108,7 +112,7 @@ export const Minter = () => {
     setStatus(TransactionStatus.inProgress);
     const amount = ethers.utils.parseEther("0.01");
     let whiteRobeCnt: number = 0;
-    console.log(allTokens);
+
     allTokens.celts.forEach((item) => {
       const metadata = JSON.parse(item.metadata);
       const atts = metadata?.attributes ?? [];

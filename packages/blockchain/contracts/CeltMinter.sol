@@ -9,6 +9,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "./GreenFalcoin.sol";
+import "hardhat/console.sol";
 
 contract CeltMinter is ERC1155Upgradeable,UUPSUpgradeable,OwnableUpgradeable,PausableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
@@ -16,14 +17,17 @@ contract CeltMinter is ERC1155Upgradeable,UUPSUpgradeable,OwnableUpgradeable,Pau
     GreenFalcoin private token_;
     uint256 private airdropAmount_;
     uint256 private mintFee_;
+    string private tokenUri_;
 
-    function initialize(string calldata tokenUri) public initializer {
+    function initialize(address greenFailCoin,string calldata tokenUri) public initializer {
       ///@dev as there is no constructor, we need to initialise the OwnableUpgradeable explicitly
         __Pausable_init();
         __Ownable_init();
         __ERC1155_init(tokenUri);
         airdropAmount_ = 10000 ether;
-        mintFee_ = 1e16 wei;
+        mintFee_ = 1e15 wei;
+        tokenUri_ = tokenUri;
+        token_ = GreenFalcoin(greenFailCoin);
     }
 
      ///@dev required by the OZ UUPS module
@@ -38,7 +42,7 @@ contract CeltMinter is ERC1155Upgradeable,UUPSUpgradeable,OwnableUpgradeable,Pau
     }
 
     function claim(uint256 amount, bool levelup) external payable whenNotPaused {
-        require(msg.value == mintFee_ * amount, "CeltMinter: not enough fund");
+        require(msg.value > mintFee_ * amount, "CeltMinter: not enough fund");
         require(amount<1000,"CeltMinter: exccced amount");
         for (uint256 index = 0; index < amount; index++) {
             _mint(msg.sender, tokenIds_.current(), 1, "0x00");
@@ -66,9 +70,8 @@ contract CeltMinter is ERC1155Upgradeable,UUPSUpgradeable,OwnableUpgradeable,Pau
     }
     
     function uri(uint256 _tokenId) override public view returns (string memory) {
-        
         return string(abi.encodePacked(
-            "https://bafybeiart4ifwiigqlkw6m7mmumetlquozzalj3tbtbhdofwsvaoim6znu.ipfs.nftstorage.link/",
+            tokenUri_,
             StringsUpgradeable.toString(_tokenId+1),
             ".json"
         ));

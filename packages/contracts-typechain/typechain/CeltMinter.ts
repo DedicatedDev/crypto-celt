@@ -25,7 +25,7 @@ export interface CeltMinterInterface extends utils.Interface {
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "burn(uint256)": FunctionFragment;
     "claim(uint256,bool)": FunctionFragment;
-    "initialize(string)": FunctionFragment;
+    "initialize(address,string)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "owner()": FunctionFragment;
     "pause()": FunctionFragment;
@@ -60,7 +60,10 @@ export interface CeltMinterInterface extends utils.Interface {
     functionFragment: "claim",
     values: [BigNumberish, boolean]
   ): string;
-  encodeFunctionData(functionFragment: "initialize", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "initialize",
+    values: [string, string]
+  ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
@@ -323,6 +326,7 @@ export interface CeltMinter extends BaseContract {
     ): Promise<ContractTransaction>;
 
     initialize(
+      greenFailCoin: string,
       tokenUri: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -443,6 +447,7 @@ export interface CeltMinter extends BaseContract {
   ): Promise<ContractTransaction>;
 
   initialize(
+    greenFailCoin: string,
     tokenUri: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -559,7 +564,11 @@ export interface CeltMinter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    initialize(tokenUri: string, overrides?: CallOverrides): Promise<void>;
+    initialize(
+      greenFailCoin: string,
+      tokenUri: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     isApprovedForAll(
       account: string,
@@ -747,6 +756,7 @@ export interface CeltMinter extends BaseContract {
     ): Promise<BigNumber>;
 
     initialize(
+      greenFailCoin: string,
       tokenUri: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -868,6 +878,7 @@ export interface CeltMinter extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     initialize(
+      greenFailCoin: string,
       tokenUri: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

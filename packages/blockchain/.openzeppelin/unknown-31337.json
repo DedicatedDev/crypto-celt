@@ -32,16 +32,6 @@
       "kind": "uups"
     },
     {
-      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-      "txHash": "0x9cdd048b2436806b8347322c0129369ebef617a6e931688aec224170010bdf82",
-      "kind": "uups"
-    },
-    {
-      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-      "txHash": "0x60baf742ed684eccdf60d85fdd4165ba925bbe010d3a2981b18ee25061568d3d",
-      "kind": "uups"
-    },
-    {
       "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       "txHash": "0x75aa092e1796a1304eca1bb227c000feef9959c226557f9c380765444a538007",
       "kind": "uups"
@@ -100,12 +90,22 @@
       "address": "0x59b670e9fA9D0A427751Af201D676719a970857b",
       "txHash": "0xf87410d670f4a01083125eea8377c2e62c9bf78093a0a731fa58b624c7656239",
       "kind": "uups"
+    },
+    {
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "txHash": "0xca244a5d700dd55ea3b1b755d6562b7dfc35f5848bd23444217de22d874c5e08",
+      "kind": "uups"
+    },
+    {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "txHash": "0x53510237443922494a0ed8897e516f05e322c547c5a9fcd8be4d2590c1779415",
+      "kind": "uups"
     }
   ],
   "impls": {
     "3c51194759a7d360b9bda339d7e6bce7cbd31ecd830c5df66824a462cd78df20": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0x9ca2c70d5fdaaeb15463321b3f118962516f003a20bd0b108bdf5e953e53de12",
+      "txHash": "0xc884bd25a5d02d3f0d8470b1d4c08e12b241909cb068a6a7a678aabda0079629",
       "layout": {
         "storage": [
           {
@@ -269,9 +269,9 @@
         }
       }
     },
-    "a9990940d5ec5577d098d41460575628dea5ffed8a2b92f8bd39d236063b58e8": {
+    "319871a387f1635db28af5d960344304a68b5d5ae8fbd57939d7e7a4de06e2b6": {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0xa89c9da5ba054d4c014c2045844d6668df7ec97b4a5f03507a39f8844874fc5f",
+      "txHash": "0xe944c216b59599b76cc3ceab3623674d774819939cdfd5252773fe69e73010c9",
       "layout": {
         "storage": [
           {
@@ -392,15 +392,15 @@
             "slot": "351",
             "type": "t_struct(Counter)3136_storage",
             "contract": "CeltMinter",
-            "src": "contracts/CeltMinter.sol:15"
+            "src": "contracts/CeltMinter.sol:16"
           },
           {
             "label": "token_",
             "offset": 0,
             "slot": "352",
-            "type": "t_contract(GreenFalcoin)4523",
+            "type": "t_contract(GreenFalcoin)4538",
             "contract": "CeltMinter",
-            "src": "contracts/CeltMinter.sol:16"
+            "src": "contracts/CeltMinter.sol:17"
           },
           {
             "label": "airdropAmount_",
@@ -408,7 +408,7 @@
             "slot": "353",
             "type": "t_uint256",
             "contract": "CeltMinter",
-            "src": "contracts/CeltMinter.sol:17"
+            "src": "contracts/CeltMinter.sol:18"
           },
           {
             "label": "mintFee_",
@@ -416,7 +416,15 @@
             "slot": "354",
             "type": "t_uint256",
             "contract": "CeltMinter",
-            "src": "contracts/CeltMinter.sol:18"
+            "src": "contracts/CeltMinter.sol:19"
+          },
+          {
+            "label": "tokenUri_",
+            "offset": 0,
+            "slot": "355",
+            "type": "t_string_storage",
+            "contract": "CeltMinter",
+            "src": "contracts/CeltMinter.sol:20"
           }
         ],
         "types": {
@@ -440,7 +448,7 @@
             "label": "bool",
             "numberOfBytes": "1"
           },
-          "t_contract(GreenFalcoin)4523": {
+          "t_contract(GreenFalcoin)4538": {
             "label": "contract GreenFalcoin",
             "numberOfBytes": "20"
           },

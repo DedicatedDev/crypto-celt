@@ -220,7 +220,7 @@ def image_worker(pad_amount, item, robes, trait_files, config):
         main_composite = Image.alpha_composite(main_composite, remaining)
 
     rgb_img = main_composite.convert('RGB')
-    token_id = str(item["tokenId"]).zfill(pad_amount)
+    token_id = str(item["tokenId"])
 
     if config["is_fake_image"]:
         fake_image = Image.new('RGB', (2000, 2000), color=(255, 255, 255))
@@ -297,7 +297,7 @@ def generate_unique_images(amount, config):
             "description": description,
             "attributes": attributes
         }
-        meta_file_number = str(i).zfill(pad_amount)
+        meta_file_number = str(i)
         meta_file_name = f'{meta_file_number}.json'
         meta_file_path = f'{meta_file_base}/{meta_file_name}'
 

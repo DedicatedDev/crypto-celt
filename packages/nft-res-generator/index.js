@@ -37,9 +37,8 @@ export const uploadToStorage = async (input, output) => {
 };
 
 const updateImageLink = (cid, count) => {
-  const padCount = count.toString().length;
   for (let index = 0; index < count; index++) {
-    const padded = (index + 1).toString().padStart(padCount, "0");
+    const padded = (index + 1).toString();
     const rowData = fs.readFileSync(`${buildDir}/metadata/${padded}.json`);
     const data = JSON.parse(rowData);
     data.image = `https://${cid}.ipfs.nftstorage.link/images/${padded}.png`;
@@ -59,7 +58,7 @@ export const prepareResources = async () => {
     const rawdata = fs.readFileSync(settingsPath);
     data = JSON.parse(rawdata);
   }
-  data.tokenUri = `https://${metadataCid}.ipfs.nftstorage.link/metadata`;
+  data.tokenUri = `https://${metadataCid}.ipfs.nftstorage.link/metadata/`;
   fs.writeFileSync(`${settingsPath}`, JSON.stringify(data), "utf-8");
 };
 await prepareResources();
