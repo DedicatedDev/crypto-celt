@@ -4,7 +4,7 @@ import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { useEffect, useState, useRef, useMemo } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import CeltMinterABI from "@cryptocelts/contracts-typechain";
+import { CeltMinterABI } from "@cryptocelts/contracts-typechain";
 import MintBgImg from "../assets/mintBgImg.png";
 import Favicon from "../assets/favicon.png";
 import { Grid } from "@mui/material";
@@ -27,7 +27,7 @@ import {
 import { NFTOwner, Robs } from "../interfaces/my_nfts/FilterTrait";
 import { TokenInfo } from "../interfaces/Nft";
 import { NFTCardItem } from "../components/NFTCardItem";
-import * as config from "../config";
+
 
 export const MyNFTs = () => {
   const MainBgImgWrapper = styled("img")(({ theme }) => ({
@@ -75,10 +75,7 @@ export const MyNFTs = () => {
   const { allTokens, setTokens } = useAppContextStore();
 
   const fetchNFTs = async () => {
-    const nfts = await CeltWeb3Service.fetchAllNFTs(
-      "rinkeby",
-      Settings.celtMinterAddress
-    );
+    const nfts = await CeltWeb3Service.fetchAllNFTs("rinkeby");
     setTokens(nfts);
   };
 
@@ -157,7 +154,7 @@ export const MyNFTs = () => {
         "rinkeby"
       );
       const falCoin = balances.filter(
-        (item) => item.token_address === config.tokenAddress.toLowerCase()
+        (item) => item.token_address === Settings.greenFalcoinAddress.toLowerCase()
       );
       if (falCoin.length != 0) {
         setFalCoin(falCoin[0].balance);

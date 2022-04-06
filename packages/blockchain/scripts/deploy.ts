@@ -26,7 +26,7 @@ async function main() {
   console.log("GreenFalCoin deployed to:", greenFalcoin.address);
 
   const celtMinterFactory = await ethers.getContractFactory("CeltMinter");
-  const celtMinter = await upgrades.deployProxy(celtMinterFactory, [Settings.tokenUri], {
+  const celtMinter = await upgrades.deployProxy(celtMinterFactory,[greenFalcoin.address,Settings.tokenUri], {
     kind: "uups",
   });
   const amount = ethers.utils.parseEther("100000000000000");
