@@ -4,7 +4,7 @@ import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { useEffect, useState, useRef, useMemo } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import CeltMinterABI from "../artifacts/contracts/CeltMinter.sol/CeltMinter.json";
+import CeltMinterABI from "@cryptocelts/contracts-typechain";
 import MintBgImg from "../assets/mintBgImg.png";
 import Favicon from "../assets/favicon.png";
 import { Grid } from "@mui/material";
@@ -15,7 +15,7 @@ import { delay, getEnumKeyByEnumValue } from "../utils/Utils";
 import { CeltWeb3Service } from "../services/CeltWeb3Service";
 import { useAppContextStore } from "../contexts/AppContext";
 import { NFTCard } from "../components/NFTCard";
-import * as setting from "../config";
+import { Settings } from "@cryptocelts/contracts-typechain";
 import { HailSharp, Search } from "@mui/icons-material";
 import {
   AppBar,
@@ -72,15 +72,15 @@ export const MyNFTs = () => {
   });
   const [tokenBalances, setTokenBalances] = useState<any[]>([]);
   const [falCoin, setFalCoin] = useState(0);
-  const { allTokens,setTokens } = useAppContextStore();
+  const { allTokens, setTokens } = useAppContextStore();
 
   const fetchNFTs = async () => {
     const nfts = await CeltWeb3Service.fetchAllNFTs(
       "rinkeby",
-      setting.celtMinterAddress
+      Settings.celtMinterAddress
     );
     setTokens(nfts);
-  }
+  };
 
   useEffect(() => {
     void fetchNFTs();
@@ -123,7 +123,7 @@ export const MyNFTs = () => {
               const attributes = metadata?.attributes ?? [];
               const hasProps =
                 attributes.filter(
-                  (element) =>
+                  (element: any) =>
                     element.trait_type.toLowerCase() === "robe" &&
                     element.value.toLowerCase().includes(item)
                 ) ?? [];
@@ -156,9 +156,11 @@ export const MyNFTs = () => {
       const balances = await CeltWeb3Service.fetchGreenFalCoinBalance(
         "rinkeby"
       );
-      const falCoin = balances.filter((item)=> item.token_address === config.tokenAddress.toLowerCase())
-      if(falCoin.length != 0) {
-        setFalCoin(falCoin[0].balance)
+      const falCoin = balances.filter(
+        (item) => item.token_address === config.tokenAddress.toLowerCase()
+      );
+      if (falCoin.length != 0) {
+        setFalCoin(falCoin[0].balance);
       }
       setTokenBalances(balances);
     } catch (error) {
@@ -210,7 +212,7 @@ export const MyNFTs = () => {
         if (
           robs.map((item) => item.toLocaleLowerCase()).includes(e.target.id)
         ) {
-          const rob = getEnumKeyByEnumValue(Robs, e.target.id);
+          const rob = getEnumKeyByEnumValue(Robs, e.target.id)!;
           if (!filterOptions.robs.has(Robs[rob])) {
             const newItem = filterOptions.robs.add(Robs[rob]);
             console.log(newItem);
@@ -292,7 +294,7 @@ export const MyNFTs = () => {
                           getEnumKeyByEnumValue(
                             Robs,
                             item.toString().toLowerCase()
-                          )
+                          )!
                         ]
                       )}
                       onChange={(e) => handleOwnerCheckBox(e)}

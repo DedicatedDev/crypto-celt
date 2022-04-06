@@ -4,9 +4,9 @@ import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { useEffect, useState } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import CeltMinterABI from "../artifacts/contracts/CeltMinter.sol/CeltMinter.json";
+import { CeltMinterABI } from "@cryptocelts/contracts-typechain";
 import { celtMinterAddress } from "../config";
-import { CeltMinter } from "../../typechain-types";
+import { CeltMinter } from "@cryptocelts/contracts-typechain";
 import MintBgImg from "../assets/mintBgImg.png";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -82,7 +82,7 @@ export const Minter = () => {
   const [formInput, updateFormInput] = useState({ count: 0 });
   const [status, setStatus] = useState(TransactionStatus.finish);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const count: number = +event.target.value.toString();
     updateFormInput((prev) => ({ ...prev, count: count }));
@@ -94,7 +94,6 @@ export const Minter = () => {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-
     const contract = new ethers.Contract(
       celtMinterAddress,
       CeltMinterABI.abi,
@@ -106,7 +105,6 @@ export const Minter = () => {
       return;
     }
 
-   
     setStatus(TransactionStatus.inProgress);
     const amount = ethers.utils.parseEther("0.01");
     let whiteRobeCnt: number = 0;
@@ -114,7 +112,7 @@ export const Minter = () => {
     allTokens.celts.forEach((item) => {
       const metadata = JSON.parse(item.metadata);
       const atts = metadata?.attributes ?? [];
-      atts.forEach((element) => {
+      atts.forEach((element: any): void => {
         if (
           element.trait_type.toLowerCase() === "robe" &&
           element.value.toLowerCase().includes("grey")
@@ -150,7 +148,7 @@ export const Minter = () => {
 
   const openOpenSea = () => {
     var win = window.open("https://testnets.opensea.io/account", "_blank");
-    win.focus();
+    win?.focus();
   };
 
   const bottomElement = () => {

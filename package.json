@@ -37,7 +37,8 @@
     "hh:deploy:local" : "cd packages/blockchain && npx hardhat run --network localhost scripts/deploy.ts && cd .. && yarn typechain:build",
     "hh:deploy:rinkeby" : "cd packages/blockchain && npx hardhat run --network rinkeby scripts/deploy.ts && cd .. && yarn typechain:build",
     "hh:deploy:emerald_testnet": "cd packages/hardhat && npx hardhat run --network emerald_testnet scripts/deploy.ts && cd .. && yarn typechain:build",
-    "hh:deploy:emerald_mainnet": "cd packages/hardhat && npx hardhat run --network emerald_mainnet scripts/deploy.ts && cd .. && yarn typechain:build"
+    "hh:deploy:emerald_mainnet": "cd packages/hardhat && npx hardhat run --network emerald_mainnet scripts/deploy.ts && cd .. && yarn typechain:build",
+    "crypto-celts" : "cd packages/app && yarn start"
   },
   "dependencies": {
     "axios": "^0.26.0",
