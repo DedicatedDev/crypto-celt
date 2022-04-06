@@ -48,7 +48,7 @@ switch (action.type) {
     case AppContextActionType.setTokens:
         return { ...state, allTokens: action.tokens};
     default:
-        break;
+        return { ...state};
     }
 };
 
