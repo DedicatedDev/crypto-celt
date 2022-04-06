@@ -1,6 +1,5 @@
 import { appendFileSync, existsSync, mkdirSync, writeFileSync, readFileSync } from "fs";
 
-import {} from "../../contracts-typechain";
 export const saveDeployedAddress = async (celtMinter: string, greenFalcoin: string) => {
   appendFileSync("./.env", `\nAPP_ADDRESS=${celtMinter} ${greenFalcoin}`);
   const settingInfo = {
@@ -11,7 +10,7 @@ export const saveDeployedAddress = async (celtMinter: string, greenFalcoin: stri
   settingInfo.celtMinterAddress = celtMinter;
   settingInfo.greenFalcoinAddress = greenFalcoin;
 
-  const settingsPath = "../../contracts-typechain/typechain/settings";
+  const settingsPath = "../contracts-typechain/settings";
   if (!existsSync(settingsPath)) {
      mkdirSync(settingsPath,{recursive: true});
   } else {
