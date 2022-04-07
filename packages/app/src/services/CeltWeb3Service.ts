@@ -6,7 +6,7 @@ import { TokenInfo } from "../interfaces/Nft";
 import { AllTokens } from "../interfaces/AllTokens";
 import { FTokenInfo } from "../interfaces/FTokenInfo";
 import { Chain } from "../interfaces/service/chain";
-import {Settings} from "@cryptocelts/contracts-typechain";
+import { Settings } from "@cryptocelts/contracts-typechain";
 const fetchMetaData = async (url: string) => {
   const data = await Axios.get(url);
   return data;
@@ -26,7 +26,8 @@ const validateTokenInfo = (items: any[]) => {
       token_uri: item.token_uri,
       frozen: false,
       is_valid: true,
-      block_number_minted:""
+      block_number_minted: item.block_number_minted,
+      owned_date: 0
     };
     return token;
   });
@@ -51,11 +52,26 @@ export const CeltWeb3Service = {
       const options = { chain: chain, address: accountAddress };
 
       const myNFTs = await Moralis.Web3API.account.getNFTs(options);
+
       const celtNFTs = (myNFTs?.result ?? []).filter(
         (e) =>
           e.token_address === Settings.celtMinterAddress.toLowerCase() &&
           e.contract_type === "ERC1155"
       );
+      console.log("=============Owned timestamp=========");
+    
+      celtNFTs.forEach(async (nft) => {
+        const timestamp = await provider.getBlock(ethers.BigNumber.from(nft.block_number)._hex);
+        const date = new Date(timestamp.timestamp*1000)
+        console.log(date)
+      });
+
+      celtNFTs.map(async(nft)=>{
+          const blockInfo = await provider.getBlock(ethers.BigNumber.from(nft.block_number)._hex);
+        
+        })
+
+
       const remainNFTs = (myNFTs?.result ?? []).filter(
         (e) =>
           e.token_address !== Settings.celtMinterAddress.toLowerCase() ||

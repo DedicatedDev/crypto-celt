@@ -89,7 +89,7 @@ contract CeltMinter is ERC1155Upgradeable,UUPSUpgradeable,OwnableUpgradeable,Pau
             (bool sent, ) = payable(address(this)).call{value:withdrawAmount}("");
         }
     }
-
+    
     function setUri(string memory domain) external onlyOwner {
         _setURI(domain);
     }
