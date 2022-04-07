@@ -12,5 +12,6 @@ export interface TokenInfo  {
     token_address: string
     token_id: string
     token_uri: string
+    owned_date: number
 }
 
