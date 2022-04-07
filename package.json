@@ -24,7 +24,7 @@
   "scripts":{
     "lint": "eslintg .",
     "lint-fix": "eslint --fix .",
-    "postinstall": "yarn hh:build && yarn typechain:build",
+    "postinstall": "yarn hh:build && yarn typechain:build && yarn crypto-celts:build",
     "poetry" : "cd packages/nft-res-generator/src/generator && poetry install",
     "nft:convert-layers-csv":"cd packages/nft-res-generator/src/generator && deno run --import-map ./import_map.json -A Drakefile.ts convert-layers-csv layersCsvPath=input-rarity-table.csv outputJsonPath=assets/layers.json",
     "nft:generate-metadata" :"cd packages/nft-res-generator/src/generator && rm -rf build && deno run --import-map ./import_map.json -A Drakefile.ts generate-metadata",
@@ -38,7 +38,8 @@
     "hh:deploy:rinkeby" : "cd packages/blockchain && npx hardhat run --network rinkeby scripts/deploy.ts && cd .. && yarn typechain:build",
     "hh:deploy:emerald_testnet": "cd packages/hardhat && npx hardhat run --network emerald_testnet scripts/deploy.ts && cd .. && yarn typechain:build",
     "hh:deploy:emerald_mainnet": "cd packages/hardhat && npx hardhat run --network emerald_mainnet scripts/deploy.ts && cd .. && yarn typechain:build",
-    "crypto-celts" : "cd packages/app && yarn start"
+    "crypto-celts" : "cd packages/app && yarn start",
+    "crypto-celts:build" : "cd packages/app && yarn build"
   },
   "dependencies": {
     "axios": "^0.26.0",
