@@ -79,7 +79,6 @@ export const Home = () => {
   }));
 
   const FAQSection = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.primary.light,
     padding: "10vh 10vw 10vh 10 vw",
     display: "flex",
     flexDirection: "row",

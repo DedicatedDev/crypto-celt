@@ -1,4 +1,3 @@
-import LocalizedStrings from "react-localization";
 export const LocalizedTexts = {
   hero_logo: "CryptoCelts",
   hero_logo_des: "Scattered throughout the metaverse there are powerful and magical CryptoCelts.",
@@ -7,4 +6,5 @@ export const LocalizedTexts = {
   home_find_mydruid: 'Find my druid',
   softBoiledEgg: "Soft-boiled egg",
   choice: "How to choose the egg",
+  licence: "© 2022, CryptoCelts by Mintroad. All Rights Reserved."
 }
