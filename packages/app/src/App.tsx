@@ -4,13 +4,13 @@ import {
   Route,
   Routes
 } from "react-router-dom";
-import { Minter } from "./pages/CeltMinter";
-import { Home } from "./pages/Home";
+//import { Minter } from "./pages/CeltMinter";
+import { Home } from "./pages/home/Home";
 import { MoralisProvider } from "react-moralis";
 import { useSnackbar } from "notistack";
 import styled from "@emotion/styled";
 import MainNavTabs from "./components/MainNavTabs";
-import { MyNFTs } from "./pages/MyNFTs";
+//import { MyNFTs } from "./pages/MyNFTs";
 import { CeltWeb3Service } from "./services/CeltWeb3Service";
 import { useAppContextStore } from "./contexts/AppContext";
 import * as setting from "./config";
@@ -31,13 +31,13 @@ function App() {
   return (
     <MoralisProvider serverUrl="https://7vxzxohekam2.usemoralis.com:2053/server" appId="GMafLqATIP99mRmaBmYErrySCb4FJ4aJMU45S3BT">
       <Router>
-        <HeaderContainer>
+        {/* <HeaderContainer>
             <MainNavTabs></MainNavTabs>
-        </HeaderContainer>
+        </HeaderContainer> */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/myNfts" element={<MyNFTs />} />
-          <Route path="/claim" element={<Minter />} />
+          {/* <Route path="/myNfts" element={<MyNFTs />} />
+          <Route path="/claim" element={<Minter />} /> */}
         </Routes>
       </Router>
     </MoralisProvider>

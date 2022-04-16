@@ -5,15 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { SnackbarProvider } from "notistack";
 import { AppContextProvider } from "./contexts/AppContext";
-import ThemeConfig from "./theme";
+import { ThemeSettingsProvider } from "./providers/ThemeSettingsProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <SnackbarProvider>
       <AppContextProvider>
-        <ThemeConfig>
+        <ThemeSettingsProvider>
           <App />
-        </ThemeConfig>
+        </ThemeSettingsProvider>
       </AppContextProvider>
     </SnackbarProvider>
   </React.StrictMode>,

@@ -1,14 +1,22 @@
-import { Components, Theme } from '@mui/material'
+import { Components, Theme } from "@mui/material"
 
+declare module "@mui/material/IconButton" {
+  interface ButtonPropsColorOverrides {
+    mute: true
+  }
+}
 export default function IconButtonTheme(theme: Theme): Components {
   return {
     MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: {
-          borderColor: theme.palette.common.white,
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderRadius: theme.spacing(1),
+          color: theme.palette.text.secondary,
+          ":hover": {
+            backgroundColor: "tranparent",
+          },
         },
       },
     },

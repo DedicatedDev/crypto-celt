@@ -9,11 +9,11 @@ import {
   CeltMinter,
   Settings,
 } from "@cryptocelts/contracts-typechain";
-import MintBgImg from "../assets/mintBgImg.png";
+import MintBgImg from "../assets/image/mintBgImg.png";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-import Favicon from "../assets/favicon.png";
-import OpenSeaIcon from "../assets/openseaIcon.svg";
+import Favicon from "../assets/image/favicon.png";
+import OpenSeaIcon from "../assets/image/openseaIcon.svg";
 import { delay } from "../utils/Utils";
 import { TransactionStatus } from "../interfaces/celtMinter/TransactionStatus";
 import { useAppContextStore } from "../contexts/AppContext";

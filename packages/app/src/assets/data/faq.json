@@ -1,0 +1,79 @@
+{
+  "faqs": [
+    {
+      "title": "When will CryptoCelts drop?",
+      "content": [
+        "The drop date of our first collection-CryptoCelts:Druids-has not been officially announced. so stay tuned!"
+      ],
+      "links": [
+        {
+          "title": "",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "title": "What blockchain(s) are CryptoCelts minted on?",
+      "content": ["The CryptoCelts: Druids collection will be minted on Polygon"],
+      "links": [
+        {
+          "title": "Polygon",
+          "url": "https://polygon.technology/"
+        }
+      ]
+    },
+    {
+      "title": "Where can I buy a CryptoCelt NFT?",
+      "content": ["The CryptoCelts: Druids collection will be listed on ", "Don’t have an OpenSea account? "],
+      "links": [
+        {
+          "title": "OpenSea.",
+          "url": "https://opensea.io/"
+        },
+        {
+          "title": "Click here to learn how to create an OpenSea account",
+          "url": "https://support.opensea.io/hc/en-us/articles/360061676254-How-do-I-create-an-OpenSea-account-"
+        }
+      ]
+    },
+    {
+      "title": "How do I stay safe in the NFT space?",
+      "content": ["To learn more about staying safe and protecting your NFTs, check out these ", "check out these"],
+      "links": [
+        {
+          "title": "tips by OpenSea for staying safe in the NFT space",
+          "url": "https://support.opensea.io/hc/en-us/articles/4408474998419-How-can-I-stay-safe-and-protect-my-NFTs-"
+        }
+      ]
+    },
+    {
+      "title": "How do I purchase a CryptoCelt NFT?",
+      "content": [
+        "The CryptoCelts: Druids collection will be minted on Polygon and listed on OpenSea. To purchase an NFT minted on Polygon you will need Polygon ETH. \n If you already have Ethereum (ETH), you can spend your ETH on Polygon by 'bridging' them across the Polygon blockchain."
+      ],
+      "links": [
+        {
+          "title": "Learn more about purchasing NFTs on Polygon",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "title": "What wallet should I use?",
+      "content": [
+        "The CryptoCelts: Druids collection will be listed on OpenSea.",
+        "If you're not sure how to install and connect a wallet to OpenSea, check out their"
+      ],
+      "links": [
+        {
+          "title": "Check out this list of wallets that are compatible with OpenSea",
+          "url": "https://support.opensea.io/hc/en-us/articles/1500007978402-What-crypto-wallets-can-I-use-with-OpenSea-"
+        },
+        {
+          "title": "video tutorial",
+          "url": "https://www.youtube.com/watch?v=7pmA02zY8Ag&ab_channel=OpenSea"
+        }
+      ]
+    }
+  ]
+}
