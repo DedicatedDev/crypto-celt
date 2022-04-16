@@ -1,13 +1,15 @@
 // ---------------------------------------------------------------------
 
-import { TypographyOptions } from "@mui/material/styles/createTypography"
+import { TypographyOptions } from "@mui/material/styles/createTypography";
 
 function pxToRem(value: number): string {
-  return `${value / 16}rem`
+  return `${value / 16}rem`;
 }
 
-const SOURCE_CODE_PRO_FAMILY = ['"Source Code Pro"', "monospace"].join(",")
-const NOE_DISPLAY_FAMILY = ['"Noe Display"'].join(",")
+const SOURCE_CODE_PRO_FAMILY = [
+  'Lato', 'sans-serif'
+].join(",");
+
 
 declare module "@mui/material/styles/createTypography" {}
 
@@ -17,18 +19,18 @@ const typography: TypographyOptions = {
   fontWeightRegular: 400,
   fontWeightBold: 700,
   h1: {
-    fontFamily: NOE_DISPLAY_FAMILY,
+    fontFamily: SOURCE_CODE_PRO_FAMILY,
     fontWeight: 700,
     fontSize: pxToRem(30),
   },
   h2: {
-    fontFamily: NOE_DISPLAY_FAMILY,
+    fontFamily: SOURCE_CODE_PRO_FAMILY,
     fontWeight: 700,
     fontSize: pxToRem(24),
     lineHeight: 32 / 24,
   },
   h3: {
-    fontFamily: NOE_DISPLAY_FAMILY,
+    fontFamily: SOURCE_CODE_PRO_FAMILY,
     fontWeight: 700,
     fontSize: pxToRem(22),
   },
@@ -69,6 +71,6 @@ const typography: TypographyOptions = {
     fontWeight: 700,
     fontSize: pxToRem(16),
   },
-}
+};
 
-export default typography
+export default typography;

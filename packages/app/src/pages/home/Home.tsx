@@ -1,14 +1,16 @@
-import { Box, Container, Hidden, styled, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { height, margin, padding } from "@mui/system";
+import { Box, styled, Typography } from "@mui/material";
 import HeroLogoImg from "../../assets/image/home/heroLogo.png";
 import BgImag from "../../assets/image/home/background.svg";
 import BgImagTm from "../../assets/image/home/background_tm.svg";
+import Arrow from "../../assets/image/home/arrow.svg";
 import { LocalizedTexts } from "../../assets/localization/localization";
 import { useTranslation } from "react-i18next";
 
 import { FeatureContent } from "./parts/FeatureContent";
 import { Celts } from "./parts/Celts";
-import {FAQ} from "./parts/FAQ";
+import { FAQ } from "./parts/FAQ";
+import { Footer } from "./parts/Footer";
+import { useBreakPoint } from "../../utils/MediaQuery";
 
 export const Home = () => {
   const HomeContainer = styled("div")(({ theme }) => ({
@@ -19,14 +21,14 @@ export const Home = () => {
   const TopSection = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     width: "100%",
-    height: `${match ? "auto" : "100vh"}`,
-    padding: "10vh 0 5vh 0",
+    height: `${match ? "100vh" : "auto" }`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    backgroundImage: `url(${match ? "" : BgImagTm})`,
+    backgroundImage: `url(${match ? BgImag : null})`,
     display: "flex",
     flexDirection: "column",
-    zIndex: 10
+    justifyContent: 'center',
+    zIndex: 10,
   }));
 
   const HeroLogoContainer = styled(Box)(({ theme }) => ({
@@ -34,9 +36,10 @@ export const Home = () => {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "stretch",
+    justifyContent: "center",
     alignContent: "start",
-    margin: "auto",
+    margin: `${match ? '0 0 10vh 0' : null}`,
+    padding: `${match ? '0 10vh 0 10vh' : '3vh 5vw 0 5vw'}`
   }));
 
   const HeroLogo = styled("img")(({ theme }) => ({
@@ -50,7 +53,6 @@ export const Home = () => {
     marginBottom: "25px",
   }));
 
-
   const GapSection = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
     padding: "10vh 0 5vh 0",
@@ -58,21 +60,22 @@ export const Home = () => {
   }));
 
   const MiddleSection = styled(Box)(({ theme }) => ({
-    backgroundColor:  theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.dark,
     width: "100vw",
     display: "flex",
     flexDirection: "row",
-    justifyContent: 'center',
+    justifyContent: "center",
   }));
 
-  const FeatureContainer = styled(Container)(({ theme }) => ({
-    width: '90vw',
-    margin: `${match ? '10vh 10vw 10vh 10vw' : '5vh 0vw 5vh 0vw'}`,
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+  const FeatureContainer = styled(Box)(({ theme }) => ({
+    width: "90vw",
+    padding: `${match ? "0 10vw 0 10vw" : null}`,
+    margin: `${match ? "10vh 0px 10vh 0px" : "5vh 0vw 5vh 0vw"}`,
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: `${match ? null : "wrap"}`,
+    justifyContent: "space-around",
+    alignItems: "center",
   }));
 
   const FAQSection = styled(Box)(({ theme }) => ({
@@ -82,12 +85,30 @@ export const Home = () => {
     flexDirection: "row",
   }));
 
+  const FootSection = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.secondary.main,
+    padding: "10vh 10vw 10vh 10 vw",
+    display: "flex",
+    flexDirection: "row",
+  }));
+
+  const ArrowSection = styled('img')(({ theme }) => ({
+    position: 'absolute',
+    top: 'auto',
+    bottom: '5px',
+    left: 0,
+    right: 0,
+    margin : 'auto',
+  }));
+
+ 
+
   const { t } = useTranslation();
-  const theme = useTheme();
-  const match = useMediaQuery(theme.breakpoints.down("xl"));
+  const match = useBreakPoint();
 
   return (
     <HomeContainer>
+      <ArrowSection src={Arrow}></ArrowSection>
       <TopSection>
         <HeroLogoContainer
           padding={{
@@ -102,7 +123,7 @@ export const Home = () => {
             {t(LocalizedTexts.hero_logo_des)}
           </HeroLogoDes>
         </HeroLogoContainer>
-        {!match ? null : <img src={BgImag}></img>}
+        {match ? null : <img src={BgImagTm} /> }
       </TopSection>
       <GapSection />
       <MiddleSection>
@@ -112,8 +133,11 @@ export const Home = () => {
         </FeatureContainer>
       </MiddleSection>
       <FAQSection>
-          <FAQ></FAQ>
+        <FAQ></FAQ>
       </FAQSection>
+      <FootSection>
+        <Footer></Footer>
+      </FootSection>
     </HomeContainer>
   );
 };
