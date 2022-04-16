@@ -52,7 +52,7 @@ export const CeltWeb3Service = {
       const options = { chain: chain, address: accountAddress };
 
       const myNFTs = await Moralis.Web3API.account.getNFTs(options);
-
+      console.log(myNFTs);
       const celtNFTs = (myNFTs?.result ?? []).filter(
         (e) =>
           e.token_address === Settings.celtMinterAddress.toLowerCase() &&

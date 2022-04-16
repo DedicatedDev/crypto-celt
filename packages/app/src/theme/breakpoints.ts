@@ -13,10 +13,10 @@ declare module '@mui/material/styles' {
 const breakpoints = {
   values: {
     xs: 0,
-    sm: 600,
-    md: 960,
-    lg: 1280,
-    xl: 1536,
+    sm: 320,
+    md: 568,
+    lg: 768,
+    xl: 1402,
     xxl: 1920,
   },
 }

@@ -1,21 +1,36 @@
-import { Components, Theme } from '@mui/material'
+import { Components } from "@mui/material"
 
-export default function TextFieldTheme(theme: Theme): Components {
+export default function TextFieldTheme(): Components {
   return {
-    // MuiTextField: {
-    //   styleOverrides: {
-    //     root: {},
-    //   },
-    // },
-    // MuiOutlinedInput: {
-    //   styleOverrides: {
-    //     root: {
-    //       backgroundColor: theme.palette.background.default,
-    //       borderRadius: theme.shape.borderRadius,
-    //       color: theme.palette.getContrastText(theme.palette.primary.light),
-    //       paddingLeft: 8,
-    //     },
-    //   },
-    // },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 6,
+          paddingRight: 8,
+        },
+        input: {
+          paddingLeft: 8,
+          paddingTop: 14.5,
+          paddingBottom: 14.5,
+        },
+        inputSizeSmall: {
+          paddingTop: 4.5,
+          paddingBottom: 4.5,
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          opacity: 0.7,
+        },
+        shrink: {
+          top: 0,
+        },
+        sizeSmall: {
+          top: -4,
+        },
+      },
+    },
   }
 }

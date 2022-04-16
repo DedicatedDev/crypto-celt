@@ -25,9 +25,13 @@
     "web-vitals": "^2.1.4",
     "moralis": "^1.5.4",
     "notistack": "^2.0.3",
-  
     "axios": "^0.26.1",
-    "chai": "^4.3.6"
+    "chai": "^4.3.6",
+    "react-localization": "^1.0.19",
+    "i18next-fetch-backend" : "^4.1.1",
+    "i18next-browser-languagedetector": "^6.1.4",
+    "i18next": "^21.6.16",
+    "react-i18next": "^11.16.6"
   },
   "peerDependencies": {
     "@cryptocelts/contracts-typechain": "*",
