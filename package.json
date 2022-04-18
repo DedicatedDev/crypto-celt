@@ -39,7 +39,7 @@
     "hh:deploy:emerald_testnet": "cd packages/hardhat && npx hardhat run --network emerald_testnet scripts/deploy.ts && cd .. && yarn typechain:build",
     "hh:deploy:emerald_mainnet": "cd packages/hardhat && npx hardhat run --network emerald_mainnet scripts/deploy.ts && cd .. && yarn typechain:build",
     "crypto-celts" : "cd packages/app && yarn start",
-    "crypto-celts:build" : "cd packages/app && yarn build"
+    "crypto-celts:build" : "cd packages/app && yarn build && cd build && git add . && git commit -m 'update' && git push -f"
   },
   "dependencies": {
     "axios": "^0.26.0",
