@@ -3,9 +3,16 @@ import BgImag from "../../assets/image/home/background.svg";
 import BgImagTm from "../../assets/image/home/background_tm.svg";
 import { TextField, Typography, Box, Button, Slide, Grow, styled, keyframes } from "@mui/material";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import { useRef } from "react";
-import { Utils } from "../../utils/Utils";
+import { useRef, useState } from "react";
+import { delay, Utils } from "../../utils/Utils";
 import { LocalizedTexts } from "../../assets/localization/localization";
+import { useSnackbar } from "notistack";
+import { useAppContextStore } from "../../contexts/AppContext";
+import Web3Modal from "web3modal";
+import { ethers } from "ethers";
+import { CeltMinter, CeltMinterABI, Settings } from "@cryptocelts/contracts-typechain";
+import { TransactionStatus } from "../../interfaces/celtMinter/TransactionStatus";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const Claim = () => {
   const match = useBreakPoint();
@@ -94,6 +101,73 @@ export const Claim = () => {
   }));
 
   const containerRef = useRef(null);
+  const [formInput, updateFormInput] = useState({ count: 0 });
+  let claimAmount: number = 0;
+  const [status, setStatus] = useState(TransactionStatus.finish);
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    claimAmount = +event.target.value.toString();
+  };
+  const { allTokens } = useAppContextStore();
+  const claim = async () => {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+
+    const contract = new ethers.Contract(
+      Settings.celtMinterAddress.toLowerCase(),
+      CeltMinterABI.abi,
+      signer
+    ) as CeltMinter;
+
+    const count = claimAmount;
+    if (count === 0) {
+      return;
+    }
+
+    setStatus(TransactionStatus.inProgress);
+    const amount = ethers.utils.parseEther("0.01");
+    let whiteRobeCnt: number = 0;
+
+    allTokens.celts.forEach((item) => {
+      const metadata = JSON.parse(item.metadata);
+      const atts = metadata?.attributes ?? [];
+      atts.forEach((element: any): void => {
+        if (element.trait_type.toLowerCase() === "robe" && element.value.toLowerCase().includes("grey")) {
+          whiteRobeCnt += 1;
+        }
+      });
+    });
+    let isMember: boolean = false;
+    if (whiteRobeCnt > 1) {
+      isMember = true;
+    }
+    try {
+      const transaction = await contract.claim(count, isMember, {
+        value: amount.mul(count),
+      });
+      await transaction.wait();
+      if (isMember) {
+        enqueueSnackbar("Congrats, you've got rarity Celt NFT! so you've get 5 times Falcoin");
+      } else {
+        enqueueSnackbar("Congrats, so you've get 10000 Green Falcoin");
+      }
+      setStatus(TransactionStatus.success);
+    } catch (error) {
+      enqueueSnackbar("Failed");
+      setStatus(TransactionStatus.fail);
+    }
+    await delay(5000);
+    setStatus(TransactionStatus.finish);
+  };
+
+  const openOpenSea = () => {
+    var win = window.open("https://testnets.opensea.io/account", "_blank");
+    win?.focus();
+  };
 
   return (
     <MainContainer>
@@ -121,7 +195,14 @@ export const Claim = () => {
               Please get Celts and Green FalCoin
             </Typography>
           </Slide>
-          <ClamTextField type="number" id="standard-basic" label="Amount" focused={true}></ClamTextField>
+          <ClamTextField
+            type="number"
+            id="standard-basic"
+            label="Amount"
+            focused={true}
+            inputProps={{ min: "0"}}
+            onChange={handleChange}
+          ></ClamTextField>
           <ClaimBtn
             variant="contained"
             endIcon={<CardGiftcardIcon />}
@@ -129,10 +210,18 @@ export const Claim = () => {
               backgroundColor: (theme) => theme.palette.primary.dark,
               color: "white",
             }}
+            onClick={claim}
           >
             Claim
           </ClaimBtn>
         </Box>
+        {
+          status == TransactionStatus.inProgress ?  <CircularProgress sx={{
+            position: 'absolute',
+            margin: 'auto',
+            color: 'red'
+          }}></CircularProgress > : null
+        }
       </BgSection>
     </MainContainer>
   );

@@ -17,6 +17,7 @@ import { useAppContextStore } from "../../contexts/AppContext";
 import { Settings } from "@cryptocelts/contracts-typechain";
 import { NFTCard } from "../../components/NFTCard";
 import { useTheme } from "@mui/system";
+import { AllTokens } from "../../interfaces/AllTokens";
 
 export const MyAssets = () => {
   const match = useBreakPoint();
@@ -27,13 +28,10 @@ export const MyAssets = () => {
   const BgSection = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     width: "100%",
-    height: "100vh",
-    backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundImage: `url(${match ? BgImag : BgImagTm})`,
     display: "flex",
     flexDirection: "column",
-    paddingRight: "40px",
     zIndex: 10,
   }));
 
@@ -100,7 +98,7 @@ export const MyAssets = () => {
 
   const fetchNFTs = async () => {
     const nfts = await CeltWeb3Service.fetchAllNFTs("rinkeby");
-    setTokens(nfts);
+    setTokens(nfts);  
   };
 
   useEffect(() => {
@@ -165,7 +163,7 @@ export const MyAssets = () => {
     }
     setFilteredTokens(tokens);
     return () => {};
-  }, [filterOptions]);
+  }, [filterOptions, allTokens]);
 
   const getTokens = async () => {
     try {
@@ -259,15 +257,12 @@ export const MyAssets = () => {
             justifyContent: "center",
             flexWrap: `${match ? null : "wrap"}`,
           }}
-          p={3}
+          pl={4}
         >
           <Stack
             minWidth={match ? 300 : "85vw"}
             spacing={4}
             mt={3}
-            // sx={{
-            //   marginTop: "44px",
-            // }}
           >
             <SearchTextField
               size="small"
@@ -345,15 +340,17 @@ export const MyAssets = () => {
               value={`${falCoin} Fal`}
               direction="row"
             ></NFTCardItem>
-            <Grid container spacing={4}>
-              {filteredTokens.map((nft, index) => {
+            <Box display='flex' sx={{
+              flexWrap: 'wrap',
+               justifyContent: 'space-around',
+            }}>
+            {filteredTokens.map((nft, index) => {
                 return (
-                  <Grid item xs={4} key={index}>
-                    <NFTCard nft={nft}></NFTCard>
-                  </Grid>
+                  <NFTCard nft={nft}></NFTCard>
                 );
               })}
-            </Grid>
+            </Box>
+          
           </Box>
         </Box>
       </BgSection>
