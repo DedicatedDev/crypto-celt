@@ -1,4 +1,4 @@
-import { Box, styled, Typography, Slide } from "@mui/material";
+import { Box, styled, Typography, Slide, keyframes } from "@mui/material";
 import HeroLogoImg from "../../assets/image/home/heroLogo.png";
 import BgImag from "../../assets/image/home/background.svg";
 import BgImagTm from "../../assets/image/home/background_tm.svg";
@@ -100,7 +100,17 @@ export const Home = () => {
     left: 0,
     right: 0,
     margin: "auto",
+    animation: `${up_down} 1s linear infinite`,
   }));
+
+  const up_down = keyframes`
+   0%, 100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 30px;
+  }
+`;
 
   const { t } = useTranslation();
   const match = useBreakPoint();
