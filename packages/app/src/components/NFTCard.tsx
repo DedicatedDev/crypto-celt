@@ -12,8 +12,12 @@ export const NFTCard = ({ nft }: NFTCardProps) => {
     border: "solid 2px",
     borderColor: "#666666",
     padding: theme.spacing(1),
-    //backgroundColor: "#666666",
+    backgroundColor: theme.palette.background.default,
     borderRadius: theme.spacing(1),
+    //height: '800px',
+    minWidth: '350px',
+    width: '30%',
+    margin: '16px'
   }));
   const [metaData, setMetaData] = React.useState<any | undefined>({
     image: "",
@@ -25,13 +29,16 @@ export const NFTCard = ({ nft }: NFTCardProps) => {
     return () => {};
   }, [nft]);
   return (
-    <Container>
+    <Container >
       <img
         src={
           metaData?.image ||
           "https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png"
         }
         width="100%"
+        style={{
+          maxHeight: '400px'
+        }}
       />
       <NFTCardItem name="Name" value={metaData?.name} direction="row"/>
       <NFTCardItem name="Token Id" value={nft.token_id} direction="row" />

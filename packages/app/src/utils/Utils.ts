@@ -18,3 +18,9 @@ export function getEnumKeyByEnumValue<T extends {[index:string]:string}>(myEnum:
   return keys.length > 0 ? keys[0] : null;
 }
 
+export const Utils =  {
+  randomColor: () => {
+    return "#" + ((1<<24)*Math.random() | 0).toString(16)
+  }
+}
+

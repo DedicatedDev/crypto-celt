@@ -24,8 +24,8 @@ export const NFTCardItem = ({
         overflow: "clip",
       }}
     >
-      <Typography color="primary">{name}</Typography>
-      <Typography>{value || "Undefined"}</Typography>
+      <Typography color="secondary">{name}</Typography>
+      <Typography color="secondary">{value || "Undefined"}</Typography>
     </Container>
   );
 };

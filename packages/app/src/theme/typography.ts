@@ -13,6 +13,35 @@ const SOURCE_CODE_PRO_FAMILY = [
 
 declare module "@mui/material/styles/createTypography" {}
 
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    nav: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    nav?: React.CSSProperties;
+  }
+
+  interface TypographyVariants {
+    giftText: React.CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    giftText?: React.CSSProperties;
+  }
+
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    poster: true;
+    //h3: false;
+  }
+}
+
 const typography: TypographyOptions = {
   fontFamily: SOURCE_CODE_PRO_FAMILY,
   fontWeightLight: 300,
@@ -71,6 +100,14 @@ const typography: TypographyOptions = {
     fontWeight: 700,
     fontSize: pxToRem(16),
   },
+  nav: {
+    fontWeight: 700,
+    fontSize: pxToRem(20)
+  },
+  giftText: {
+    fontWeight: 900,
+    fontSize: pxToRem(28)
+  }
 };
 
 export default typography;

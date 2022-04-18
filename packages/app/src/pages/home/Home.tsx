@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled, Typography, Slide, keyframes } from "@mui/material";
 import HeroLogoImg from "../../assets/image/home/heroLogo.png";
 import BgImag from "../../assets/image/home/background.svg";
 import BgImagTm from "../../assets/image/home/background_tm.svg";
@@ -11,6 +11,7 @@ import { Celts } from "./parts/Celts";
 import { FAQ } from "./parts/FAQ";
 import { Footer } from "./parts/Footer";
 import { useBreakPoint } from "../../utils/MediaQuery";
+import { useEffect, useRef, useState } from "react";
 
 export const Home = () => {
   const HomeContainer = styled("div")(({ theme }) => ({
@@ -21,13 +22,13 @@ export const Home = () => {
   const TopSection = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     width: "100%",
-    height: `${match ? "100vh" : "auto" }`,
+    height: `${match ? "100vh" : "auto"}`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundImage: `url(${match ? BgImag : null})`,
     display: "flex",
     flexDirection: "column",
-    justifyContent: 'center',
+    justifyContent: "center",
     zIndex: 10,
   }));
 
@@ -38,8 +39,8 @@ export const Home = () => {
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "start",
-    margin: `${match ? '0 0 10vh 0' : null}`,
-    padding: `${match ? '0 10vh 0 10vh' : '3vh 5vw 0 5vw'}`
+    margin: `${match ? "0 0 10vh 0" : null}`,
+    padding: `${match ? "0 10vh 0 10vh" : "3vh 5vw 0 5vw"}`,
   }));
 
   const HeroLogo = styled("img")(({ theme }) => ({
@@ -51,6 +52,7 @@ export const Home = () => {
     maxWidth: "550px",
     marginTop: "10px",
     marginBottom: "25px",
+    color: theme.palette.secondary.main,
   }));
 
   const GapSection = styled(Box)(({ theme }) => ({
@@ -91,19 +93,36 @@ export const Home = () => {
     flexDirection: "row",
   }));
 
-  const ArrowSection = styled('img')(({ theme }) => ({
-    position: 'absolute',
-    top: 'auto',
-    bottom: '5px',
+  const ArrowSection = styled("img")(({ theme }) => ({
+    position: "absolute",
+    top: "auto",
+    bottom: "5px",
     left: 0,
     right: 0,
-    margin : 'auto',
+    margin: "auto",
+    animation: `${up_down} 1s linear infinite`,
   }));
 
- 
+  const up_down = keyframes`
+   0%, 100% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 30px;
+  }
+`;
 
   const { t } = useTranslation();
   const match = useBreakPoint();
+  const [show, setShow] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <HomeContainer>
@@ -117,12 +136,32 @@ export const Home = () => {
             sm: "3vh 5vw 5vh 5vw",
           }}
         >
-          <HeroLogo src={HeroLogoImg}></HeroLogo>
-          <HeroLogoDes color="CaptionText" variant="h3">
-            {t(LocalizedTexts.hero_logo_des)}
-          </HeroLogoDes>
+          <Slide
+            in={show}
+            direction="up"
+            timeout={2000}
+            easing={{
+              enter: "cubic-bezier(0, 1.5, .8, 1)",
+              exit: "linear",
+            }}
+          >
+            <HeroLogo src={HeroLogoImg}></HeroLogo>
+          </Slide>
+          <Slide
+            in={show}
+            direction="up"
+            timeout={2000}
+            easing={{
+              enter: "cubic-bezier(0, 1.5, .8, 1)",
+              exit: "linear",
+            }}
+          >
+            <HeroLogoDes color="CaptionText" variant="h3">
+              {t(LocalizedTexts.hero_logo_des)}
+            </HeroLogoDes>
+          </Slide>
         </HeroLogoContainer>
-        {match ? null : <img src={BgImagTm} /> }
+        {match ? null : <img src={BgImagTm} />}
       </TopSection>
       <GapSection />
       <MiddleSection>
