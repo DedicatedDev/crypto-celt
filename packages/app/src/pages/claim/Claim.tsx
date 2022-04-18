@@ -153,7 +153,9 @@ export const Claim = () => {
       if (isMember) {
         enqueueSnackbar("Congrats, you've got rarity Celt NFT! so you've get 5 times Falcoin");
       } else {
-        enqueueSnackbar("Congrats, so you've get 10000 Green Falcoin");
+        enqueueSnackbar(
+          "Congrats, so you've get Green Falcoin. after 1 years if you try to get celt again, you will get twice over bonus!"
+        );
       }
       setStatus(TransactionStatus.success);
     } catch (error) {
@@ -200,7 +202,7 @@ export const Claim = () => {
             id="standard-basic"
             label="Amount"
             focused={true}
-            inputProps={{ min: "0"}}
+            inputProps={{ min: "0" }}
             onChange={handleChange}
           ></ClamTextField>
           <ClaimBtn
@@ -215,13 +217,15 @@ export const Claim = () => {
             Claim
           </ClaimBtn>
         </Box>
-        {
-          status == TransactionStatus.inProgress ?  <CircularProgress sx={{
-            position: 'absolute',
-            margin: 'auto',
-            color: 'red'
-          }}></CircularProgress > : null
-        }
+        {status == TransactionStatus.inProgress ? (
+          <CircularProgress
+            sx={{
+              position: "absolute",
+              margin: "auto",
+              color: "red",
+            }}
+          ></CircularProgress>
+        ) : null}
       </BgSection>
     </MainContainer>
   );

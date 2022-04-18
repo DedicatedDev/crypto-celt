@@ -42,9 +42,8 @@ describe("CeltMinter", () => {
   });
 
   it("airdrop", async () => {
-    //await greenFalcoin.mint(celtMinter.address, 1e8);
-    //await greenFalcoin.approve(accounts[5].address, 1e4);
     const amount = ethers.utils.parseEther("0.01");
     await celtMinter.connect(accounts[5]).claim(3,true,{value: amount});
   });
+
 });

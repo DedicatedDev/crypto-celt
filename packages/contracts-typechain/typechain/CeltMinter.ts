@@ -25,6 +25,7 @@ export interface CeltMinterInterface extends utils.Interface {
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
     "burn(uint256)": FunctionFragment;
     "claim(uint256,bool)": FunctionFragment;
+    "getAvaialbeRewards()": FunctionFragment;
     "initialize(address,string)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "owner()": FunctionFragment;
@@ -32,11 +33,13 @@ export interface CeltMinterInterface extends utils.Interface {
     "paused()": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "rewards(address,uint256)": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setFee(uint256)": FunctionFragment;
     "setGreenFalAirdropAmount(uint256)": FunctionFragment;
+    "setLockTime(uint256)": FunctionFragment;
     "setUri(string)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
@@ -61,6 +64,10 @@ export interface CeltMinterInterface extends utils.Interface {
     values: [BigNumberish, boolean]
   ): string;
   encodeFunctionData(
+    functionFragment: "getAvaialbeRewards",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "initialize",
     values: [string, string]
   ): string;
@@ -80,6 +87,10 @@ export interface CeltMinterInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "rewards",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "safeBatchTransferFrom",
     values: [string, string, BigNumberish[], BigNumberish[], BytesLike]
   ): string;
@@ -97,6 +108,10 @@ export interface CeltMinterInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setGreenFalAirdropAmount",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setLockTime",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "setUri", values: [string]): string;
@@ -127,6 +142,10 @@ export interface CeltMinterInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getAvaialbeRewards",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isApprovedForAll",
@@ -143,6 +162,7 @@ export interface CeltMinterInterface extends utils.Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "rewards", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeBatchTransferFrom",
     data: BytesLike
@@ -158,6 +178,10 @@ export interface CeltMinterInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "setFee", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setGreenFalAirdropAmount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setLockTime",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setUri", data: BytesLike): Result;
@@ -325,6 +349,8 @@ export interface CeltMinter extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    getAvaialbeRewards(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     initialize(
       greenFailCoin: string,
       tokenUri: string,
@@ -350,6 +376,14 @@ export interface CeltMinter extends BaseContract {
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    rewards(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { unlockTime: BigNumber; amount: BigNumber }
+    >;
 
     safeBatchTransferFrom(
       from: string,
@@ -382,6 +416,11 @@ export interface CeltMinter extends BaseContract {
 
     setGreenFalAirdropAmount(
       airdropAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setLockTime(
+      _lockDays: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -446,6 +485,8 @@ export interface CeltMinter extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  getAvaialbeRewards(overrides?: CallOverrides): Promise<BigNumber>;
+
   initialize(
     greenFailCoin: string,
     tokenUri: string,
@@ -471,6 +512,14 @@ export interface CeltMinter extends BaseContract {
   renounceOwnership(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  rewards(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { unlockTime: BigNumber; amount: BigNumber }
+  >;
 
   safeBatchTransferFrom(
     from: string,
@@ -503,6 +552,11 @@ export interface CeltMinter extends BaseContract {
 
   setGreenFalAirdropAmount(
     airdropAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setLockTime(
+    _lockDays: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -564,6 +618,8 @@ export interface CeltMinter extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    getAvaialbeRewards(overrides?: CallOverrides): Promise<BigNumber>;
+
     initialize(
       greenFailCoin: string,
       tokenUri: string,
@@ -585,6 +641,14 @@ export interface CeltMinter extends BaseContract {
     proxiableUUID(overrides?: CallOverrides): Promise<string>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
+    rewards(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { unlockTime: BigNumber; amount: BigNumber }
+    >;
 
     safeBatchTransferFrom(
       from: string,
@@ -614,6 +678,11 @@ export interface CeltMinter extends BaseContract {
 
     setGreenFalAirdropAmount(
       airdropAmount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setLockTime(
+      _lockDays: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -755,6 +824,8 @@ export interface CeltMinter extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    getAvaialbeRewards(overrides?: CallOverrides): Promise<BigNumber>;
+
     initialize(
       greenFailCoin: string,
       tokenUri: string,
@@ -779,6 +850,12 @@ export interface CeltMinter extends BaseContract {
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    rewards(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     safeBatchTransferFrom(
@@ -812,6 +889,11 @@ export interface CeltMinter extends BaseContract {
 
     setGreenFalAirdropAmount(
       airdropAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setLockTime(
+      _lockDays: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -877,6 +959,10 @@ export interface CeltMinter extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    getAvaialbeRewards(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     initialize(
       greenFailCoin: string,
       tokenUri: string,
@@ -901,6 +987,12 @@ export interface CeltMinter extends BaseContract {
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    rewards(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     safeBatchTransferFrom(
@@ -934,6 +1026,11 @@ export interface CeltMinter extends BaseContract {
 
     setGreenFalAirdropAmount(
       airdropAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setLockTime(
+      _lockDays: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
