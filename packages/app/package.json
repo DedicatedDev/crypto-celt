@@ -31,7 +31,8 @@
     "i18next-fetch-backend" : "^4.1.1",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next": "^21.6.16",
-    "react-i18next": "^11.16.6"
+    "react-i18next": "^11.16.6",
+    "react-iframe" : "^1.8.0"
   },
   "peerDependencies": {
     "@cryptocelts/contracts-typechain": "*",

@@ -5,15 +5,12 @@ import { Home } from "./pages/home/Home";
 import { MoralisProvider } from "react-moralis";
 import { useSnackbar } from "notistack";
 
-import MainNavTabs from "./components/MainNavTabs";
-//import { MyNFTs } from "./pages/MyNFTs";
-import { CeltWeb3Service } from "./services/CeltWeb3Service";
-import { useAppContextStore } from "./contexts/AppContext";
 import * as setting from "./config";
 import { styled, Typography, useTheme } from "@mui/material";
-import { fontSize, fontWeight, keyframes, margin, padding } from "@mui/system";
+import { keyframes } from "@mui/system";
 import { Claim } from "./pages/claim/Claim";
 import { MyAssets } from "./pages/my_assets/MyAssets";
+import { OpenSea } from "./pages/opensea/OpenSea";
 
 function App() {
   const HeaderContainer = styled("div")(({ theme }) => ({
@@ -84,7 +81,6 @@ function App() {
           >
             Claim
           </RouteLink>
-
           <RouteLink
             to="/my_assets"
             style={({ isActive }) => ({
@@ -92,17 +88,28 @@ function App() {
               "&:active": {
                 color: "red",
               },
+              paddingRight: '20px',
             })}
           >
             My Assets
           </RouteLink>
-
-         
+          <RouteLink
+            to="/opensea"
+            style={({ isActive }) => ({
+              color: isActive ? tm.palette.primary.dark : tm.palette.primary.main,
+              "&:active": {
+                color: "red",
+              },
+            })}
+          >
+            OpenSea
+          </RouteLink>
         </HeaderContainer>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/claim" element={<Claim />} /> 
           <Route path="/my_assets" element={<MyAssets />} />
+          <Route path="/opensea" element={<OpenSea />} />
         </Routes>
       </Router>
     </MoralisProvider>

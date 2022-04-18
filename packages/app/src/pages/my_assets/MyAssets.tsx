@@ -17,7 +17,7 @@ import { useAppContextStore } from "../../contexts/AppContext";
 import { Settings } from "@cryptocelts/contracts-typechain";
 import { NFTCard } from "../../components/NFTCard";
 import { useTheme } from "@mui/system";
-import { AllTokens } from "../../interfaces/AllTokens";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const MyAssets = () => {
   const match = useBreakPoint();
@@ -94,11 +94,14 @@ export const MyAssets = () => {
   });
   const [tokenBalances, setTokenBalances] = useState<any[]>([]);
   const [falCoin, setFalCoin] = useState(0);
+  const [isLoading, setLoading] = useState(false);
   const { allTokens, setTokens } = useAppContextStore();
 
   const fetchNFTs = async () => {
+    setLoading(true);
     const nfts = await CeltWeb3Service.fetchAllNFTs("rinkeby");
-    setTokens(nfts);  
+    setLoading(false);
+    setTokens(nfts);
   };
 
   useEffect(() => {
@@ -259,11 +262,7 @@ export const MyAssets = () => {
           }}
           pl={4}
         >
-          <Stack
-            minWidth={match ? 300 : "85vw"}
-            spacing={4}
-            mt={3}
-          >
+          <Stack minWidth={match ? 300 : "85vw"} spacing={4} mt={3}>
             <SearchTextField
               size="small"
               placeholder="Search Nfts from your wallet"
@@ -340,19 +339,37 @@ export const MyAssets = () => {
               value={`${falCoin} Fal`}
               direction="row"
             ></NFTCardItem>
-            <Box display='flex' sx={{
-              flexWrap: 'wrap',
-               justifyContent: 'space-around',
-            }}>
-            {filteredTokens.map((nft, index) => {
-                return (
-                  <NFTCard nft={nft}></NFTCard>
-                );
+            <Box
+              display="flex"
+              sx={{
+                flexWrap: "wrap",
+                justifyContent: "space-around",
+              }}
+            >
+              {filteredTokens.map((nft, index) => {
+                return <NFTCard nft={nft}></NFTCard>;
               })}
             </Box>
-          
           </Box>
         </Box>
+        {isLoading ? (
+          <Box
+            display="flex"
+            sx={{
+              position: "absolute",
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "#44444444",
+            }}
+          >
+            <CircularProgress
+              sx={{
+                margin: "auto",
+                color: "red",
+              }}
+            ></CircularProgress>
+          </Box>
+        ) : null}
       </BgSection>
     </MainContainer>
   );
