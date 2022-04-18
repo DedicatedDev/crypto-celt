@@ -8,7 +8,7 @@ export const OpenSea = () => {
       width="100%"
       id="myId"
       height="100%"
-      styles={{ height: "25px", border: 'none' }}
+      styles={{ height: "25px", border: "none" }}
     />
   );
 };

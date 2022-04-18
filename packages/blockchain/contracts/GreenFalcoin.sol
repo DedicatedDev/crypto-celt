@@ -9,7 +9,6 @@ import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 
 contract GreenFalcoin is ERC20Upgradeable,UUPSUpgradeable,PausableUpgradeable,OwnableUpgradeable  {
 
-
     function initialize() public initializer {
       ///@dev as there is no constructor, we need to initialise the OwnableUpgradeable explicitly
         __Pausable_init();
