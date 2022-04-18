@@ -54,7 +54,7 @@ const lightPalette: PaletteOptions | undefined = {
     light: "#83EBEB",
     states: {
       outlinedRestingBorder: "#06D7D7",
-      outlinedHoverBackground: "#E6FFFF",
+      outlinedHoverBackground: "#434444",
       containedHoverBackground: "#037777",
     },
   },
@@ -110,7 +110,7 @@ const lightPalette: PaletteOptions | undefined = {
     dark: "#68282F",
     light: "#FDA49A",
     alert: {
-      background: "#FEECEB",
+      background: "#424242",
     },
   },
   warning: {
@@ -131,7 +131,7 @@ const lightPalette: PaletteOptions | undefined = {
   grey: GREY_TONES,
   other: {
     divider: "#E3D899",
-    border: "#7D7D7D",
+    border:  "#52b48b",
   }
 }
 
@@ -144,7 +144,7 @@ const darkPalette: PaletteOptions | undefined = {
     states: {
       outlinedRestingBorder: "#06D7D7",
       outlinedHoverBackground: "#037777",
-      containedHoverBackground: "#E6FFFF",
+      containedHoverBackground: "#3A3A3A",
     },
   },
   secondary: {
@@ -210,7 +210,7 @@ const darkPalette: PaletteOptions | undefined = {
     },
   },
   text: {
-    secondary: "#E4E4E4",
+    secondary: "#383636",
     disabled: "#7D7D7D",
   },
   background: {
@@ -220,7 +220,7 @@ const darkPalette: PaletteOptions | undefined = {
   divider: "#311188",
   other: {
     divider: "#311188",
-    border: "#7D7D7D",
+    border:  "#52b48b",
   },
   grey: GREY_TONES,
 }

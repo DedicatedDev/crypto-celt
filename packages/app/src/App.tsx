@@ -13,6 +13,7 @@ import * as setting from "./config";
 import { styled, Typography, useTheme } from "@mui/material";
 import { fontSize, fontWeight, keyframes, margin, padding } from "@mui/system";
 import { Claim } from "./pages/claim/Claim";
+import { MyAssets } from "./pages/my_assets/MyAssets";
 
 function App() {
   const HeaderContainer = styled("div")(({ theme }) => ({
@@ -85,7 +86,7 @@ function App() {
           </RouteLink>
 
           <RouteLink
-            to="/my_nfts"
+            to="/my_assets"
             style={({ isActive }) => ({
               color: isActive ? tm.palette.primary.dark : tm.palette.primary.main,
               "&:active": {
@@ -93,22 +94,15 @@ function App() {
               },
             })}
           >
-            My Nfts
+            My Assets
           </RouteLink>
 
-          {/* <NavLink to="/claim" style={{ textDecoration: "none" }}>
-            <NavText pl={2} color={theme.palette.primary.dark}>
-              Claim
-            </NavText>
-          </NavLink>
-          <NavLink to="/my_nft" style={{ textDecoration: "none" }}>
-            <NavText pl={2}>My NFTs</NavText>
-          </NavLink> */}
+         
         </HeaderContainer>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/claim" element={<Claim />} /> 
-          {/* <Route path="/myNfts" element={<MyNFTs />} />*/}
+          <Route path="/my_assets" element={<MyAssets />} />
         </Routes>
       </Router>
     </MoralisProvider>
